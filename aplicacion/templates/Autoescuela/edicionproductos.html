@@ -1,0 +1,257 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}edicionproductos{% endblock %}
+
+{% block contenido %}
+
+  <section class="d-flex justify-content-start">
+    <div class="container m-2">
+        <a href="{% url 'perfilAdmin' %}" class="btn boton-volver"><i class="bi bi-arrow-left"></i></a>
+    </div>
+</section>
+
+
+<section class="h-100">
+  <div class="container py-5">
+      <div class="row d-flex justify-content-center my-4">
+          <div class="col-md-8">
+              <div class="card mb-4">
+                  <div class="card-header py-3">
+                      <h5 class="mb-0">Productos</h5>
+                  </div>
+                  <div class="card-body">
+                      <!-- Single item -->
+                      <div class="row">
+                          <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
+                          </div>
+                          <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
+
+                              <!-- Data -->
+                              <p><strong>Curso Clase A2</strong></p>
+                              <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-danger btn-sm mb-2" data-mdb-tooltip-init data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                  title="Move to the wish list">
+                                  <i class="bi bi-trash"></i>
+                              </button>
+                              <!-- Data -->
+                          </div>
+
+                          <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                              <!-- Quantity -->
+                              <div class="d-flex mb-4" style="max-width: 300px">
+                                  <button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary px-3 me-2"
+                                      onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                                      <i class="bi bi-dash"></i>
+                                  </button>
+
+                                  <div data-mdb-input-init class="form-outline">
+                                      <input id="form1" min="0" name="quantity" value="30" type="number" class="form-control" />
+                                      <label class="form-label" for="form1">Cupos</label>
+                                  </div>
+
+                                  <button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary px-3 ms-2"
+                                      onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                                      <i class="bi bi-plus"></i>
+                                  </button>
+                              </div>
+                              <!-- Quantity -->
+
+                              <!-- Price -->
+                              <p class="text-start text-md-center">
+                                  <input type="number" class="form-control precio-input" placeholder="Nuevo Precio" value="300000" min="0" max="999999">
+                                  <label class="form-label" for="form1">Precio</label>
+                                  <div class="invalid-feedback">El precio debe estar entre 0 y 999999.</div>
+                              </p>
+                              <!-- Price -->
+                          </div>
+                      </div>
+                      <!-- Single item -->
+
+                      <hr class="my-4" />
+
+                      <!-- Single item -->
+                      <div class="row">
+                          <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
+                          </div>
+                          <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
+                              <!-- Data -->
+                              <p><strong>Curso Clase B</strong></p>
+                              <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-danger btn-sm mb-2" data-mdb-tooltip-init data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                  title="Move to the wish list">
+                                  <i class="bi bi-trash"></i>
+                              </button>
+                              <!-- Data -->
+                          </div>
+
+                          <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                              <!-- Quantity -->
+                              <div class="d-flex mb-4" style="max-width: 300px">
+                                  <button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary px-3 me-2 "
+                                      onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                                      <i class="bi bi-dash"></i>
+                                  </button>
+
+                                  <div data-mdb-input-init class="form-outline">
+                                      <input id="form1" min="0" name="quantity" value="30" type="number" class="form-control" />
+                                      <label class="form-label" for="form1">Cupos</label>
+                                  </div>
+
+                                  <button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary px-3 ms-2"
+                                      onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                                      <i class="bi bi-plus"></i>
+                                  </button>
+                              </div>
+                              <!-- Quantity -->
+
+                              <!-- Price -->
+                              <p class="text-start text-md-center">
+                                  <input type="number" class="form-control precio-input" placeholder="Nuevo Precio" value="170000" min="0" max="999999">
+                                  <label class="form-label" for="form1">Precio</label>
+                                  <div class="invalid-feedback">El precio debe estar entre 0 y 999999.</div>
+                              </p>
+                              <!-- Price -->
+                          </div>
+                      </div>
+                      <!-- Single item (Nuevo curso) -->
+                      <hr class="my-4">
+
+                      <div class="row">
+                          <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
+                          </div>
+
+                          <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
+                              <!-- Data -->
+                              <p><strong>Curso Clase A3</strong></p>
+                              <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-danger btn-sm mb-2" data-mdb-tooltip-init data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                  title="Move to the wish list">
+                                  <i class="bi bi-trash"></i>
+                              </button>
+                              <!-- Data -->
+                          </div>
+
+                          <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                              <!-- Quantity -->
+                              <div class="d-flex mb-4" style="max-width: 300px">
+                                  <button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary px-3 me-2"
+                                      onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                                      <i class="bi bi-dash"></i>
+                                  </button>
+
+                                  <div data-mdb-input-init class="form-outline">
+                                      <input id="form1" min="0" name="quantity" value="30" type="number" class="form-control" />
+                                      <label class="form-label" for="form1">Cupos</label>
+                                  </div>
+
+                                  <button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary px-3 ms-2"
+                                      onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                                      <i class="bi bi-plus"></i>
+                                  </button>
+                              </div>
+                              <!-- Quantity -->
+
+                              <!-- Price -->
+                              <p class="text-start text-md-center">
+                                  <input type="number" class="form-control precio-input" placeholder="Nuevo Precio" value="250000" min="0" max="999999">
+                                  <label class="form-label" for="form1">Precio</label>
+                                  <div class="invalid-feedback">El precio debe estar entre 0 y 999999.</div>
+                              </p>
+                              <!-- Price -->
+                          </div>
+                      </div>
+                      <!-- Single item -->
+                  </div>
+              </div>
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarProductoModal">
+                  Agregar Producto
+              </button>
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editarProductoModal">
+                  Confirmar Edición
+              </button>
+              <a href="{% url 'ventas' %}" class="btn btn-primary">Ventas</a>
+
+          </div>
+      </div>
+  </div>
+</section>
+<!-- Modal para agregar producto -->
+<div class="modal fade" id="agregarProductoModal" tabindex="-1" aria-labelledby="agregarProductoModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="agregarProductoModalLabel">Agregar Producto</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <!-- Formulario para agregar producto -->
+              <form class="form-control">
+                <div class="mb-3">
+                    <label for="precio" class="form-label">Precio</label>
+                    <input type="text" class="form-control" id="precio" required>
+                    <div class="invalid-feedback">
+                        El precio debe contener solo números.
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="cupos" class="form-label">Cupos</label>
+                    <input type="number" class="form-control" id="cupos" required>
+                    <div class="invalid-feedback">
+                        Por favor ingrese un número válido de cupos.
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="tipoCurso" class="form-label">Tipo de Curso</label>
+                    <input type="text" class="form-control" id="tipoCurso" maxlength="4" required>
+                    <div class="invalid-feedback">
+                        El tipo de curso debe tener máximo 4 caracteres.
+                    </div>
+                </div>
+                <!-- Botón de guardar -->
+                <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">Guardar</button>
+            </form>
+            
+              <!-- Mensaje de guardado exitoso (oculto por defecto) -->
+              <div class="alert alert-success mt-3 d-none" role="alert">
+                  Guardado exitoso.
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="editarProductoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Mensaje de Sistema</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ¡Edición Realizada!
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Modal-->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Mensaje de Sistema</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ¡Eliminacion realizada!
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+{%endblock%}

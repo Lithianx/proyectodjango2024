@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}horas{% endblock %}
+
+{% block contenido %}
+
+  <section class="d-flex justify-content-start">
+    <div class="container m-2">
+        <a href="index.html" class="btn boton-volver"><i class="bi bi-arrow-left"></i></a>
+    </div>
+</section>
+
+
+<div class="container-fluid p-5 bg-danger text-white text-center position-relative">
+  <div class="p-5 bg-danger text-white text-center position-relative">
+  <h1 class="position-absolute" style="top: 50%; left: 50%; transform: translate(-50%, -50%);">Reserva tu hora</h1>
+</div>
+</div>
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+      <div class="col-lg-6">
+        <form id="reservationForm" class="needs-validated">
+          <div class="mb-3">
+              <label for="nombreCompleto" class="form-label">Nombre Completo</label>
+              <input type="text" class="form-control" id="nombreCompleto-horas" placeholder="Nombre Completo" required>
+              <div class="invalid-feedback">
+                  El nombre debe tener al menos 6 caracteres.
+              </div>
+          </div>
+          <div class="mb-3">
+              <label for="rutInput" class="form-label">Rut</label>
+              <input type="text" class="form-control" id="id-rut-horas" placeholder="Rut" required>
+              <div class="invalid-feedback">
+                  El Rut debe tener el formato correcto (Ej. 12345678-9).
+              </div>
+          </div>
+          <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email-horas" placeholder="Email" required>
+              <div class="invalid-feedback">
+                  El email debe tener un formato válido (Ej. usuario@dominio.com).
+              </div>
+          </div>
+          <div class="mb-3">
+              <label for="formGroupExampleInput2" class="form-label">Teléfono</label>
+              <input type="text" class="form-control" id="id-telefono-horas" placeholder="Teléfono" required>
+              <div class="invalid-feedback">
+                  El teléfono debe tener 9 dígitos y empezar con 9.
+              </div>
+          </div>
+          <div class="mb-3">
+              <label for="tipoCurso" class="form-label">Seleccione tipo de curso</label>
+              <select class="form-select" id="tipoCurso" required>
+                  <option value="">Seleccione un tipo de curso</option>
+                  <option>Clase B</option>
+                  <option>Clase A2</option>
+                  <option>Clase A3</option>
+              </select>
+              <div class="invalid-feedback">
+                  Por favor, seleccione un tipo de curso.
+              </div>
+          </div>
+          <div class="mb-3">
+              <label for="fechaCurso" class="form-label">Seleccione fecha</label>
+              <select class="form-select" id="fechaCurso" required>
+                  <option value="">Seleccione una fecha</option>
+                  <option>16/Abril - 24/Abril</option>
+                  <option>2/Mayo - 10/Mayo</option>
+                  <option>12/Mayo - 20/Mayo</option>
+              </select>
+              <div class="invalid-feedback">
+                  Por favor, seleccione una fecha.
+              </div>
+          </div>
+          <button type="button" class="btn btn-primary" id="reservarButton" data-bs-toggle="modal" data-bs-target="#exampleModal" disabled>Reservar</button>
+      </form>
+      </div>
+  </div>
+</div>
+
+{%endblock%}
+
+
+              
+
+
+
+ 

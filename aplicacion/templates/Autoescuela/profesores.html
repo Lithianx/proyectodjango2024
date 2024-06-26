@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}index{% endblock %}
+
+{% block contenido %}
+
+  <section class="d-flex justify-content-start">
+    <div class="container m-2">
+        <a href="{% url 'index' %}" class="btn boton-volver"><i class="bi bi-arrow-left"></i></a>
+    </div>
+</section>
+
+
+
+<div
+    class="masthead1"
+    style="background-image: url(img/auto.png);">
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-ms-6 col-md text-center">
+        NUESTROS CONDUCTORES PROFESIONALES
+
+      </div>
+    </div>
+  </div>
+<!--tarjetas-->
+  <div class="container mt-5 d-md-block">
+    <div class="row justify-content-center align-items-center">
+      <div class="col- col-sm-3">
+        <div class="card" style="width: 18rem;">
+          <img src="{% static "Autoescuela/img/persona1.png" %}" class="card-img-top img-fluid" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Gerardo Muñoz</h5>
+            <p class="card-text">5 años de experiencia</p>
+            <a href="#" class="btn btn-primary">Saber mas</a>
+          </div>
+        </div>
+      </div>
+      <div class="col- col-sm-3">
+        <div class="card" style="width: 18rem;">
+          <img src="{% static "Autoescuela/img/persona2.png" %}" class="card-img-top img-fluid" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Carolina Olate</h5>
+            <p class="card-text">6 años de experiencia</p>
+            <a href="#" class="btn btn-primary">Saber mas</a>
+          </div>
+        </div>
+      </div>
+      <div class="col- col-sm-3">
+        <div class="card" style="width: 18rem;">
+          <img src="{% static "Autoescuela/img/persona3.png" %}" class="card-img-top img-fluid" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Jorge Pizarro</h5>
+            <p class="card-text">10 años de experiencia</p>
+            <a href="#" class="btn btn-primary">Saber mas</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+    </div>
+
+
+  </div>
+  
+  {%endblock%}

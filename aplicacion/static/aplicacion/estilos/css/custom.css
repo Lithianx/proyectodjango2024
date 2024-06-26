@@ -1,0 +1,229 @@
+
+
+.masthead {
+    background-size: cover;
+    min-height: 100vh;
+    position: relative;
+    color: white;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, .2);
+    
+
+}
+.masthead1 {
+    background-size: cover;
+    min-height: 40vh;
+    position: relative;
+    color: white;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, .2);
+    margin-bottom: 40px;
+
+}
+
+h1 {
+    font-size: 4rem;
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+@media (max-width: 768px) {
+    .masthead {
+        min-height: 30vh;
+    }
+    h1 {
+        font-size: calc(1.525rem + 3.3vw);
+    }
+}
+.color-overlay {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .2);
+}
+.bg-image {
+    background-image: url('Autoescuela/img/auto.png');
+    background-size: cover; /* Para que la imagen cubra todo el fondo */
+    background-position: center; /* Para centrar la imagen */
+    background-repeat: no-repeat; /* Para evitar la repetición de la imagen */
+    padding: 100px 0; /* Ajusta según necesites */
+}
+
+.mapa {
+    position: absolute;
+    top: 150px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px;
+    height: auto;
+}
+.contenedor-icono {
+    display: grid;
+    grid-template-columns: auto auto; /* Dos columnas: una para el icono y otra para el texto */
+    align-items: center;
+    position: relative;
+    top: 580px;
+    right: 600px;
+}
+
+.contenedor-icono i{
+    font-size: 50px;
+    color: red; 
+}
+.texto-icono {
+    font-family: Arial, Helvetica, sans-serif;
+    margin-left: 10px;
+    font-size: 1,5rem;
+    color: white;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+    letter-spacing: 1px;
+    line-height: 1.5;
+}
+.contenedor-botones {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
+
+.boton {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s;
+}
+
+.boton:hover {
+    background-color: #0056b3;
+}
+
+
+.contenedor-comentario form {
+    max-width: 300px;
+    margin: auto;
+}
+
+.contenedor-comentario label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.contenedor-comentario input[type="text"],
+.contenedor-comentario textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.contenedor-comentario button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.contenedor-comentario button:hover {
+    background-color: #0056b3;
+}
+.form-square {
+    width: 700px;
+    height: 350px;
+
+    padding: 20px;
+    box-sizing: border-box;
+    margin-top: -100px; 
+    margin-bottom: -100px; 
+  }
+  .contenedor-cubierta {
+    position: absolute;
+    top: 150px;  
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px; 
+    height: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px; 
+}
+
+.form-horas {
+    position: relative;
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 500px;
+    padding: 40px;
+    box-sizing: border-box;
+    padding-top: 500px;
+  }
+
+  .form-group {
+    margin-bottom: 10px; 
+  }
+
+  .gradient-custom {
+    /* fallback for old browsers */
+    background: #6a11cb;
+    
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
+    
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1))
+    }
+
+
+    .center-form {
+        max-width: 600px; /* Adjust this value to what suits your design */
+        margin: 0 auto; /* This will center the form */
+      }
+
+      .center-button {
+        max-width: 600px; /* Adjust this value to what suits your design */
+        margin: 0 auto; /* This will center the form */
+      }
+
+      .space-top {
+        margin-top: 50px; /* Adjust this value to what suits your design */
+      }
+
+
+      .profile-icon {
+        font-size: 200px; /* Adjust this value to what suits your design */
+      }
+
+      .contenedor-principal {
+        height: 60vh ;
+    }
+
+    .horario-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px; /* Añade un espacio superior */
+      }
+      .horario-table th, .horario-table td {
+        border: 1px solid #CCCCCC;
+        padding: 8px;
+        text-align: center;
+      }
+      .horario-table th {
+        background-color: #f2f2f2;
+      }
+      .carousel-item img {
+        height: 1000px;  /* Ajusta este valor según tus necesidades */
+        object-fit: cover;  /* Esto asegura que la imagen cubra todo el espacio disponible sin estirarse */
+    
+    }
+    
+    .containerpago {
+        max-width: 960px;
+    }
+    

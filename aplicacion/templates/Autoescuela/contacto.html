@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block title %}Contacto{% endblock %}
+
+{% block contenido %}
+
+  <section class="d-flex justify-content-start">
+    <div class="container m-2">
+        <a href={% url 'index' %} class="btn boton-volver"><i class="bi bi-arrow-left"></i></a>
+    </div>
+</section>  
+
+
+
+
+  <div class="masthead1" style="background-image: url(./img/traffic-3612474_1280_1.png);">
+    <div class="color-overlay d-flex justify-content-center align-items-center">
+      <h1>Contacto</h1>
+  
+      
+  
+    </div>
+  </div>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col">
+        <img src={% static "Autoescuela/img/para vs.png" %} alt="mapa">
+      </div>
+      <div class="col">
+        <div class="col text-center border border-danger p-3">
+          <p><i class="bi bi-shop m-1"></i> DIRECCION : Los nogales #335 </p> 
+          <p><i class="bi bi-telephone m-1"></i> TELEFONO: 22 2256368 </p>
+          <p><i class="bi bi-envelope m-1"></i> EMAIL: escuelachillan@gmail.com</p>
+          <a href="https://www.google.com/maps/place/Los+Nogales,+Chill%C3%A1n,+%C3%91uble/@-36.6168838,-72.109391,17z/data=!3m1!4b1!4m6!3m5!1s0x9669283266e90b99:0xacfd5ec952386f11!8m2!3d-36.6168838!4d-72.1068107!16s%2Fg%2F1tdx5bf8?entry=ttu" class="btn btn-info">Ver en Google Maps</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    
+  
+
+    
+    </div>
+  </div>
+
+  {%endblock%}
+
+
+

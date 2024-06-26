@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}inicioSesionEstud{% endblock %}
+
+{% block contenido %}
+  
+  
+  <section class="d-flex justify-content-start">
+    <div class="container m-2">
+        <a href={% url 'index' %} class="btn boton-volver"><i class="bi bi-arrow-left"></i></a>
+    </div>
+</section>
+
+
+<div class="container-fluid p-5 bg-danger text-white text-center position-relative">
+  <h1 class="position-absolute" style="top: 50%; left: 50%; transform: translate(-50%, -50%);">Inicio Sesión</h1>
+</div>
+
+
+
+
+
+
+               <!-- Modal body -->
+                  <div class="modal-body center-form space-top">
+                    <form id="registroForm" class="needs-validated">
+                      <div class="mb-3 mt-3">
+                          <label for="uname" class="form-label">Nombre de Usuario</label>
+                          <input type="text" class="form-control" id="uname" placeholder="Ingresa nombre de usuario" name="uname" required>
+                          <div class="valid-feedback">Válido.</div>
+                          <div class="invalid-feedback">Por favor ingresa tu nombre de usuario (mínimo 3 caracteres).</div>
+                      </div>
+                      <div class="mb-3">
+                          <label for="pwd" class="form-label">Contraseña</label>
+                          <input type="password" class="form-control" id="pwd" placeholder="Ingresa contraseña" name="pswd" required>
+                          <div class="valid-feedback">Válido.</div>
+                          <div class="invalid-feedback">Por favor ingresa tu contraseña (mínimo 6 caracteres).</div>
+                      </div>
+                      <div class="d-grid gap-2">
+                          <button type="submit" class="btn btn-danger fs-4" id="id-boton-isesion">Iniciar sesión</button>
+                          <button type="button" class="btn btn-secondary fs-4" data-bs-toggle="modal" data-bs-target="#registerModal">Registrarse</button>
+                      </div>
+                  </form>
+                  
+
+                  </div>
+      <!-- The Register Modal -->
+      <div class="modal" id="registerModal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title fs-1">Registro</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                  <form id="registroForm" action="index.html" class="needs-validated">
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label fs-4" valid-feedback="Nombre válido" invalid-feedback="Ingresa un nombre válido (mínimo 3 caracteres y solo letras)">Nombre de usuario</label>
+                        <div class="input-group has-validation">
+                            <input type="text" class="form-control fs-5" id="nombre" placeholder="Ingresa tu nombre de usuario" required>
+                            <div class="invalid-feedback">
+                                <i class="bi bi-exclamation-circle-fill text-danger"></i> Ingresa un nombre válido (mínimo 3 caracteres y solo letras).
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label fs-4" valid-feedback="Email válido" invalid-feedback="Ingresa un email válido">Email</label>
+                        <div class="input-group has-validation">
+                            <input type="email" class="form-control fs-5" id="email" placeholder="Ingresa tu email" required>
+                            <div class="invalid-feedback">
+                                <i class="bi bi-exclamation-circle-fill text-danger"></i> Ingresa un email válido.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="contrasena" class="form-label fs-4" valid-feedback="Contraseña válida" invalid-feedback="Ingresa una contraseña válida (mínimo 6 caracteres, alfanumérica)">Contraseña</label>
+                        <div class="input-group has-validation">
+                            <input type="password" class="form-control fs-5" id="contrasena" placeholder="Ingresa tu contraseña" required>
+                            <div class="invalid-feedback">
+                                <i class="bi bi-exclamation-circle-fill text-danger"></i> Ingresa una contraseña válida (mínimo 6 caracteres).
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-danger fs-4" data-bs-dismiss="modal" id="b-registro">Registrarse</button>
+                    </div>
+                </form>
+                
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    {%endblock%}
+
+
+
+
+ 

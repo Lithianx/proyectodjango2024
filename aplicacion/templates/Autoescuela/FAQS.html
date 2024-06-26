@@ -1,0 +1,203 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}FAQS{% endblock %}
+
+{% block contenido %}
+
+  <section class="d-flex justify-content-start">
+    <div class="container m-2">
+        <a href="{% url 'index'%}" class="btn boton-volver"><i class="bi bi-arrow-left"></i></a>
+    </div>
+</section>
+
+
+<div
+    class="masthead1"
+    style="background-image: url(img/auto.png);">
+  </div>
+
+
+  <div class="container mb-5">
+    
+    <div class="accordion" id="accordionPanelsStayOpenExample">
+      <div class="accordion" id="accordionPanelsStayOpenExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+              ¿Cuáles son los requisitos para inscribirme en el curso de manejo?
+            </button>
+          </h2>
+          <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+            <div class="accordion-body">
+              Ser mayor de 18 años, o tener 17 años acompañado de un tutor.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+              ¿Cuál es el costo del curso y qué incluye?
+            </button>
+          </h2>
+          <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+            <div class="accordion-body">
+              El valor del curso es de $180.000 + IVA
+              Incluye: 
+              <br>
+              Comunicación Vial 
+              <br>
+              Elementos del Tránsito 
+              <br>
+              Terminología Vial
+              <br>
+              Instrucciones y Reglas del Tránsito
+              <br>
+              Virajes
+              <br>
+              Adelantamiento y Sobrepasar
+              <br>
+              Estacionamiento y Detención
+              <br>
+              Velocidad
+              <br>
+              Mecánica Básica
+              <br>
+              Motor de combustión interna
+              <br>
+              Mantención del Vehículo
+              <br>
+              Responsabilidad y medio ambiente
+              <br>
+              Convivencia y Seguridad Vial
+              <br>
+              Propuesta valórica
+              <br>
+              La concentración en la conducción
+              <br>
+              Equilibrio emocional en la conducción
+              <br>
+              Conducción preventiva
+              <br>
+              Alcohol y drogas en la conducción
+              <br>
+              Evaluación Psicotécnica
+              <br>
+              Instrucción práctica en vehículo de doble comando
+              <br>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+              ¿Cuánto tiempo dura el curso de manejo?
+            </button>
+          </h2>
+          <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
+            <div class="accordion-body">
+              El curso dura 18 dias entre clases prácticas y teóricas.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseFour">
+              ¿Hay opciones de pago o financiamiento disponibles?
+            </button>
+          </h2>
+          <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse">
+            <div class="accordion-body">
+              Si, existen diferentes formas de pago:
+              <br>
+              -Debito
+              <br>
+              -Credito
+              <br>
+              -Efectivo
+              <br>
+              -Transferencia
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false" aria-controls="panelsStayOpen-collapseFive">
+              ¿Ofrecen clases teóricas y prácticas?
+            </button>
+          </h2>
+          <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse">
+            <div class="accordion-body">
+              Sí. Nuestro programa contempla clases teoricas en sala y clases prácticas junto a nuestro profesores.
+              
+              
+              
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseSix" aria-expanded="false" aria-controls="panelsStayOpen-collapseSix">
+              ¿Tienen horarios flexibles para las clases?
+            </button>
+          </h2>
+          <div id="panelsStayOpen-collapseSix" class="accordion-collapse collapse">
+            <div class="accordion-body">
+              Existen horarios flexibles en modalidad online sólo para clases teóricas.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseSeven" aria-expanded="false" aria-controls="panelsStayOpen-collapseSeven">
+              ¿Los instructores están certificados y tienen experiencia?
+            </button>
+          </h2>
+          <div id="panelsStayOpen-collapseSeven" class="accordion-collapse collapse">
+            <div class="accordion-body">
+              Sí. Nuestros profesionales cuentan con varios años de experiencia y certificaciones
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseEight" aria-expanded="false" aria-controls="panelsStayOpen-collapseEight">
+              ¿Proporcionan vehículos para las prácticas de manejo?
+            </button>
+          </h2>
+          <div id="panelsStayOpen-collapseEight" class="accordion-collapse collapse">
+            <div class="accordion-body">
+              Si, tenemos una pequeña flota de vehiculos equipados 
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseNine" aria-expanded="false" aria-controls="panelsStayOpen-collapseNine">
+              ¿Ofrecen clases para conductores principiantes y conductores experimentados?
+            </button>
+          </h2>
+          <div id="panelsStayOpen-collapseNine" class="accordion-collapse collapse">
+            <div class="accordion-body">
+              Si, tenemos una variedad de cursos para distintos tipos de usuarios
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTen" aria-expanded="false" aria-controls="panelsStayOpen-collapseTen">
+              ¿Cuál es el proceso para obtener la licencia de conducir después de completar el curso?
+            </button>
+          </h2>
+          <div id="panelsStayOpen-collapseTen" class="accordion-collapse collapse">
+            <div class="accordion-body">
+              El siguiente paso es realizar el respectivo tramite en la municipalidad de residencia, donde puedes adjuntar el certificado de curso completado
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  {%endblock%}

@@ -1,0 +1,98 @@
+
+{% load static %}
+{% extends "base.html" %}
+{% block title %}Cursos{% endblock %}
+
+{% block contenido %}
+
+
+  <section class="d-flex justify-content-start">
+    <div class="container m-2">
+        <a href={% url 'index' %} class="btn boton-volver"><i class="bi bi-arrow-left"></i></a>
+    </div>
+</section>
+
+
+
+
+
+    <div class="container-fluid p-5 bg-primary text-white text-center position-relative">
+        <img src={% static 'Autoescuela/img/image_2.png' %} class="img-fluid position-absolute" style="object-fit: cover; top: 0; left: 0; width: 100%; height: 100%;">
+        <h1 class="position-absolute" style="top: 50%; left: 50%; transform: translate(-50%, -50%);">Cursos</h1>
+        <p>¡Capacítate en la mejor autoescuela!!</p> 
+    </div>
+        
+    <div class="container mt-5">
+        <div class="card-deck">
+        <div class="col-md-15 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <h3 class="card-title">Curso Clase B</h3>
+              <p class="card-text">Es una autorizacion para que personas de 18 años o más puedan conducir vehículos motorizados de tres o cuatro ruedas, para el transporte:</p>
+              <ul>
+                <li>Particular de personas: con capacidad de hasta nueve asientos.</li>
+                <li>De carga: con un peso vehícular máximo permitido de 3.500 kilogramos.</li>
+              </ul>
+              <p class="card-text">Valor: $170.000</p>
+              <a href="{% url 'horas'%}" class="btn btn-danger">Comprar Curso</a>
+            </div>
+        </div>
+          </div>
+          <div class="col-md-15 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <h3 class="card-title">Curso Clase A2</h3>
+              <p class="card-text">Es una autorizacion para que personas de 18 años o más puedan conducir vehículos motorizados como, taxis, ambulancias y vehículos motorizados de transporte público y privado:</p>
+              <ul>
+                <li>Particular de personas: con capacidad de hasta nueve asientos.</li>
+                <li>De carga: con un peso vehícular máximo permitido de 3.500 kilogramos.</li>
+              </ul>
+              <p class="card-text">Valor: $300.000</p>
+              <a href="{% url 'horas'%}" class="btn btn-danger">Comprar Curso</a>
+            </div>
+            </div>
+          </div>
+          <div class="col-md-15 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <h3 class="card-title">Curso Clase A3</h3>
+              <p class="card-text">Es una autorizacion para que personas de 18 años o más puedan conducir vehículos motorizados de tres o cuatro ruedas, para el transporte:</p>
+              <ul>
+                <li>Particular de personas: con capacidad de hasta nueve asientos.</li>
+                <li>De carga: con un peso vehícular máximo permitido de 3.500 kilogramos.</li>
+              </ul>
+              <p class="card-text">Valor: $250.000</p>
+              <a href="{% url 'horas'%}" class="btn btn-danger">Comprar Curso</a>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    
+
+<div class="container mt-5 mb-5">
+  <div class="row">
+    <div class="col">
+
+    </div>
+    <div class="col">
+      <div class="p-3 bg-danger text-light">
+        <p>Valor dolar:</p>
+        <div class="spinner">
+            <span class="spinner-grow spinner-grow-sm"></span>
+            Espere
+        </div>
+        <h4 id="dolar"></h4>
+    </div>
+
+    </div>
+    <div class="col">
+
+    </div>
+  </div>
+</div>
+      
+ 
+{%endblock%}

@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}perfilAdmin{% endblock %}
+
+{% block contenido %}
+
+
+  <section class="d-flex justify-content-start">
+    <div class="container m-2">
+        <a href="{% url 'index' %}" class="btn boton-volver"><i class="bi bi-arrow-left"></i></a>
+    </div>
+</section>
+
+  <div class="container-fluid contenedor-principal">
+    <div class="container-fluid p-5 bg-danger text-white text-center position-relative">
+        <div class="p-5 text-center">
+            <h1 class="position-absolute" style="top: 50%; left: 50%; transform: translate(-50%, -50%);">Perfil Admin</h1>
+        </div>
+    </div>
+    <div class="text-center mt-4">
+        <a href="{% url 'edicionproductos' %}" class="btn btn-primary me-3">Editar Productos</a>
+        <a href="{% url 'editarusuario' %}" class="btn btn-secondary">Edición de Usuario</a>
+    </div>
+</div>
+</main>
+
+{%endblock%}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+ 
