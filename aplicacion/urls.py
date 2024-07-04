@@ -38,6 +38,7 @@ urlpatterns = [
     path('profesores/', profesores , name='profesores'),
     path('ventas/', ventas , name='ventas'),
     path('form_inicio_sesion/', form_inicio_sesion , name='form_inicio_sesion'),
+    path('form_registrarse/', form_registrarse , name='form_registrarse'),
 
     
 
