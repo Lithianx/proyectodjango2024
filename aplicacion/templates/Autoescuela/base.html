@@ -1,4 +1,5 @@
 {% load static %}
+{% load crispy_forms_tags %}
 
 <!DOCTYPE html>
 <html lang="es">
@@ -50,7 +51,7 @@
               Iniciar Sesión
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="{% url 'inicioSesionEstud' %}">Estudiante</a></li>
+              <li><a class="dropdown-item" href="{% url 'form_inicio_sesion' %}">Estudiante</a></li>
               
               <li><a class="dropdown-item" href="{% url 'perfilAdmin' %}">Administracion</a></li>
             </ul>

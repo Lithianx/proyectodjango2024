@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+from django.contrib.auth import login, authenticate, logout
+from aplicacion.forms import form_login
 
 
 def base(request):
@@ -49,7 +51,16 @@ def profesores(request):
 def ventas(request):
     return render(request,'Autoescuela/ventas.html')
 
-
+def form_inicio_sesion(request):
+    if request.method == 'POST':
+        form = form_login(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect('index')
+    else:
+        form = form_login()
+    return render(request, 'Autoescuela/form_inicio_sesion.html', {'formulario': form})
 
 
 
