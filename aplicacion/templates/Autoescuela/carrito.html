@@ -16,7 +16,9 @@
             </tr>
         </thead>
         <tbody>
+            <script>console.log(items_carrito)</script>
             {% for item in items_carrito %}
+
             <tr>
                 <td>{{ item.producto.nombre }}</td>
                 <td>{{ item.producto.precio }}</td>
