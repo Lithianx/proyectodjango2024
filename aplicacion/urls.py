@@ -41,6 +41,9 @@ urlpatterns = [
     path('form_registrarse/', form_registrarse , name='form_registrarse'),
     path('carrito/', carrito , name='carrito'),
     path('agregar_al_carrito/<int:producto_id>/', agregar_al_carrito, name='agregar_al_carrito'),
+    path('quitar_del_carrito/<int:producto_id>/', quitar_del_carrito, name='quitar_del_carrito'),
+    path('pagoexitoso/', pagoexitoso, name='pagoexitoso'),
+    
 
     
 

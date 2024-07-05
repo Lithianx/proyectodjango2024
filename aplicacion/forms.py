@@ -76,3 +76,7 @@ class EditarPerfilForm(forms.ModelForm):
     class Meta:
         model = Perfil
         fields = ['nombre_estudiante','correo', 'direccion' , 'foto_perfil' ]
+
+
+class ComprarCursoForm(forms.Form):
+    producto_id = forms.IntegerField(widget=forms.HiddenInput)

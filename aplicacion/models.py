@@ -53,12 +53,22 @@ class DetalleCompra(models.Model):
         return f"{self.producto.nombre} x {self.tipo_pago}"
     
 
+# class CarritoItem(models.Model):
+#     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+#     compra = models.ForeignKey(Compra, on_delete=models.CASCADE, null=True, blank=True)
+
+#     def __str__(self):
+#         return f'{self.producto.nombre}'
+
 class CarritoItem(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     compra = models.ForeignKey(Compra, on_delete=models.CASCADE, null=True, blank=True)
+    cantidad = models.PositiveIntegerField(default=1)
 
     def __str__(self):
         return f'{self.producto.nombre}'
 
 
-    
+    @property
+    def total_price(self):
+        return self.cantidad * self.producto.precio

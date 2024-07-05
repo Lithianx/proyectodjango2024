@@ -1,34 +1,38 @@
 {% extends "Autoescuela/base.html" %}
+{% load static %}
+
 {% block title %}Carrito de Compras{% endblock %}
 
 {% block contenido %}
-
-
-
-
 <div class="container mt-5">
     <h2>Carrito de Compras</h2>
     <table class="table">
         <thead>
             <tr>
                 <th>Producto</th>
-                <th>Cantidad</th>
                 <th>Precio</th>
                 <th>Total</th>
+                <th>Acción</th>
             </tr>
         </thead>
         <tbody>
-            {% for item in carrito_items %}
+            {% for item in items_carrito %}
             <tr>
                 <td>{{ item.producto.nombre }}</td>
-                <td>{{ item.cantidad }}</td>
                 <td>{{ item.producto.precio }}</td>
-                <td>{{ item.total_price }}</td>
+                <td>{{ item.total_price }}</td>  
+                <td>
+                    <form method="post" action="{% url 'quitar_del_carrito' item.producto.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Quitar</button>
+                    </form>
+                </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
     <h3>Total: {{ total }}</h3>
-    <a href="{% url 'index' %}" class="btn btn-primary">Proceder a la Compra</a>
+    <a href="{% url 'cursos' %}" class="btn btn-primary">Volver a Escoger Cursos</a>
+    <a href="{% url 'formpago' %}" class="btn btn-success">Proceder a la Compra</a>
 </div>
 {% endblock %}
