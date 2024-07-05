@@ -8,96 +8,67 @@
 
 
 
-
-
-
-
-
-
-  <section class="h-100">
-    <div class="container py-5 h-100">
+<section class="h-100">
+  <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col-lg-10 col-xl-11">
-          <div class="card" style="border-radius: 10px;">
-            <div class="card-header px-4 py-5">
-              <h5 class="text-muted mb-0">Mis compras:</h5>
-            </div>
-            <div class="card-body p-4">
-              <div class="d-flex justify-content-between align-items-center mb-4">
-                <p class="lead fw-normal mb-0" style="color:    #000000;">Compras</p>
+          <div class="col-lg-10 col-xl-11">
+              <div class="card" style="border-radius: 10px;">
+                  <div class="card-header px-4 py-5">
+                      <h5 class="text-muted mb-0">Mis Compras:</h5>
+                  </div>
+                  <div class="card-body p-4">
+                      <div class="d-flex justify-content-between align-items-center mb-4">
+                          <p class="lead fw-normal mb-0" style="color: #000000;">Compras</p>
+                      </div>
+                      <div class="row">
+                          {% for compra in compras %}
+                          <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+                              <div class="card mb-3">
+                                  <div class="card-body">
+                                      <h5 class="card-title text-center">Compra #{{ compra.id }}</h5>
+                                      <p class="card-text">Curso: {{ compra.nombre_curso }}</p>
+                                      <p class="card-text">Fecha: {{ compra.fecha_pedido }}</p>
+                                      <p class="card-text">Precio: ${{ compra.precio }}</p>
+                                      <p class="card-text">Estado: {{ compra.estado }}</p>
+                                  </div>
+                                  <div class="text-center">
+                                      <button type="button" class="btn btn-primary btn-sm ver-detalles" data-compra-id="{{ compra.id }}" data-bs-toggle="modal" data-bs-target="#modalVerCompra{{compra.id}}">Ver Factura</button>
+                                  </div>
+                              </div>
+                          </div>
+                          <!-- Modal -->
+                          <div class="modal fade bd-example-modal-lg" id="modalVerCompra{{compra.id}}" tabindex="-1" aria-labelledby="modalVerCompraLabel" aria-hidden="true">
+                              <div class="modal-dialog modal-dialog-centered modal-lg">
+                                  <div class="modal-content">
+                                      <div class="modal-header">
+                                          <h5 class="modal-title" id="modalVerCompraLabel">Compra #<span id="compra-id"></span></h5>
+                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                      </div>
+                                      <div class="modal-body text-center">
+                                          <p>**Información de la Factura:**</p>
+                                          <ul>
+                                              <li>ID de la Compra: #{{ compra.id }}</li>
+                                              <li>Fecha de Compra: {{ compra.fecha_pedido }}</li>
+                                              <li>Curso: {{ compra.nombre_curso }}</li>
+                                              <li>Precio: ${{ compra.precio }}</li>
+                                              <li>Estado de la Venta: {{ compra.estado }}</li>
+                                          </ul>
+                                      </div>
+                                      <div class="modal-footer d-flex justify-content-between">
+                                          <button type="button" class="btn btn-primary fs-5" data-bs-dismiss="modal">Imprimir</button>
+                                          <button type="button" class="btn btn-danger fs-5" data-bs-dismiss="modal">Cerrar</button>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          {% endfor %}
+                      </div>
+                  </div>
               </div>
-              <div class="card shadow-0 border mb-4">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-md-1 text-center d-flex justify-content-center align-items-center">
-                      <p class="text-muted mb-0">Curso Clase B</p>
-                    </div>
-                    <div class="col-md-1 text-center d-flex justify-content-center align-items-center">
-                      <p class="text-muted mb-0 small">Precio:</p>
-                    </div>
-                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                      <p class="text-muted mb-0 small">$202.300</p>
-                    </div>
-                    <div class="col-md-1 text-center d-flex justify-content-center align-items-center">
-                        <p class="text-muted mb-0 small">Fecha de compra:</p>
-                    </div>
-                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                        <p class="text-muted mb-0 small">13/02/2023</p>
-                    </div>
-                    <div class="col-md-1 text-center d-flex justify-content-center align-items-center">
-                        <p class="text-muted mb-0 small">Estado de curso:</p>
-                    </div>
-                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                        <p class="text-muted mb-0 small">Completado</p>
-                    </div>
-                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                      <a class="btn btn-primary" href="#" role="button">Factura</a>
-                  </div>
-                  </div>
-                  <hr class="mb-4" style="background-color: #e0e0e0; opacity: 1;">
-                  <div class="row d-flex align-items-center">
-                  </div>
-                </div>
-              </div>
-              <div class="card shadow-0 border mb-4">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-md-1 text-center d-flex justify-content-center align-items-center">
-                      <p class="text-muted mb-0">Curso Clase A2</p>
-                    </div>
-                    <div class="col-md-1 text-center d-flex justify-content-center align-items-center">
-                      <p class="text-muted mb-0 small">Precio:</p>
-                    </div>
-                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                      <p class="text-muted mb-0 small">$300.000</p>
-                    </div>
-                    <div class="col-md-1 text-center d-flex justify-content-center align-items-center">
-                        <p class="text-muted mb-0 small">Fecha de compra:</p>
-                    </div>
-                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                        <p class="text-muted mb-0 small">13/02/2023</p>
-                    </div>
-                    <div class="col-md-1 text-center d-flex justify-content-center align-items-center">
-                        <p class="text-muted mb-0 small">Estado de curso:</p>
-                    </div>
-                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                        <p class="text-muted mb-0 small">Completado</p>
-                    </div>
-                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                      <a class="btn btn-primary" href="#" role="button">Factura</a>
-                  </div>
-                  </div>
-                  <hr class="mb-4" style="background-color: #e0e0e0; opacity: 1;">
-                  <div class="row d-flex align-items-center">
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
-        </div>
       </div>
-    </div>
-  </section>
+  </div>
+</section>
 
 
 

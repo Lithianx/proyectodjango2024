@@ -1,9 +1,10 @@
 from pyexpat.errors import messages
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
-from aplicacion.forms import RegistroForm, form_login
+from aplicacion.forms import RegistroForm, form_login, PagoForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from aplicacion.models import CarritoItem, Compra, Perfil, DetalleCompra
 
 
 
@@ -30,8 +31,39 @@ def faqs(request):
     return render(request,'Autoescuela/faqs.html')
 
 def formpago(request):
-    return render(request,'Autoescuela/formpago.html')
+    items_carrito = CarritoItem.objects.all()
+    total = sum(item.producto.precio for item in items_carrito)  # Calcula el total del carrito
 
+    if request.method == 'POST':
+        form = PagoForm(request.POST)
+        if form.is_valid():
+            perfil = request.user if request.user.is_authenticated else None
+
+            # Crea la instancia de Compra
+            compra = Compra(
+                nombre_curso=form.cleaned_data['nombre_Curso'],  # Ajusta según tus necesidades
+                precio=total,
+                estado='Pendiente',
+                perfil=perfil
+            )
+            compra.save()
+
+            # Crea las instancias de DetalleCompra
+            for item in items_carrito:
+                detalle_compra = DetalleCompra(
+                    compra=compra,
+                    producto=item.producto,
+                )
+                detalle_compra.save()
+
+            # Vacía el carrito después de realizar la compra
+            items_carrito.delete()
+
+            return redirect('index')
+    else:
+        form = PagoForm()
+
+    return render(request, 'Autoescuela/formpago.html', {'form': form, 'total': total})
 def horas(request):
     return render(request,'Autoescuela/horas.html')
 
@@ -42,7 +74,8 @@ def interfaz_de_compra(request):
     return render(request,'Autoescuela/interfaz_de_compra.html')
 
 def miscompras(request):
-    return render(request,'Autoescuela/miscompras.html')
+    compras = Compra.objects.filter(perfil=request.user)
+    return render(request,'Autoescuela/miscompras.html', {'compras': compras})
 
 def perfil(request):
     return render(request,'Autoescuela/perfil.html')
@@ -89,7 +122,8 @@ def form_registrarse(request):
         form = RegistroForm()
     
     return render(request, 'Autoescuela/form_registrarse.html', {'form': form})
-    
+
+
 @login_required
 def agregar_carrito(request, curso_id):
     curso = get_object_or_404(curso, id=curso_id) 
