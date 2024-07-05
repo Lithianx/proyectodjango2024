@@ -16,11 +16,13 @@ Including another URLconf
 """
 
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 
-from aplicacion.views import contacto, cursos, edicionproductos, editarusuario, faqs, formpago, horas, index, inicioSesionEstud, interfaz_de_compra, miscompras, perfil, perfilAdmin, profesores, ventas
+from aplicacion.views import contacto, cursos, edicionproductos, editarusuario, faqs, form_inicio_sesion, formpago, horas, index, inicioSesionEstud, interfaz_de_compra, miscompras, perfil, perfilAdmin, profesores, ventas,form_inicio_sesion
 
 urlpatterns = [
-    path('', index , name='index'),
+    path('',index, name='index'),
     path('contacto/', contacto , name='contacto'),
     path('cursos/', cursos , name='cursos'),
     path('edicionproductos/', edicionproductos , name='edicionproductos'),
@@ -35,6 +37,8 @@ urlpatterns = [
     path('perfilAdmin/', perfilAdmin , name='perfilAdmin'),
     path('profesores/', profesores , name='profesores'),
     path('ventas/', ventas , name='ventas'),
+    path('form_inicio_sesion/', form_inicio_sesion , name='form_inicio_sesion'),
+
     
 
 

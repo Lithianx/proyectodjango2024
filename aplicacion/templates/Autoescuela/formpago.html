@@ -1,14 +1,12 @@
-{% extends "base.html" %}
+{% extends "Autoescuela/base.html" %}
 {% load static %}
+
+
 {% block title %}formpago{% endblock %}
 
 {% block contenido %}
 
-  <section class="d-flex justify-content-start">
-    <div class="container m-2">
-        <a href="{% url 'interfaz_de_compra' %}" class="btn boton-volver"><i class="bi bi-arrow-left"></i></a>
-    </div>
-</section>
+
 <div class="d-flex justify-content-center align-items-center">
   <div class="row g-5 containerpago">
     <div class="col-md-5 col-lg-4 order-md-last " class=".needs-validation">
@@ -205,4 +203,4 @@
 
     </main>
 
-    {%endblock%}
+{% endblock %}

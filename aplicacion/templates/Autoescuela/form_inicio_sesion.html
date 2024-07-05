@@ -1,0 +1,27 @@
+{% extends "Autoescuela/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+
+{% block title %}Contacto{% endblock %}
+
+{% block contenido %}
+
+
+
+
+<div class="container">
+    <h2>Iniciar Sesión</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ formulario|crispy}}
+        <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+        <button type= "button" class="btn btn-secondary"><a href="{% url '#' %}">Registrarse</a></button>
+    </form>
+</div>
+
+
+
+
+{% endblock %}

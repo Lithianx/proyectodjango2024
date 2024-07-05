@@ -1,14 +1,11 @@
-{% extends "base.html" %}
+{% extends "Autoescuela/base.html" %}
 {% load static %}
-{% block title %}index{% endblock %}
+
+
+{% block title %}profesores{% endblock %}
 
 {% block contenido %}
 
-  <section class="d-flex justify-content-start">
-    <div class="container m-2">
-        <a href="{% url 'index' %}" class="btn boton-volver"><i class="bi bi-arrow-left"></i></a>
-    </div>
-</section>
 
 
 
@@ -30,7 +27,7 @@
     <div class="row justify-content-center align-items-center">
       <div class="col- col-sm-3">
         <div class="card" style="width: 18rem;">
-          <img src="{% static "Autoescuela/img/persona1.png" %}" class="card-img-top img-fluid" alt="...">
+          <img src="{% static "aplicacion/img/persona1.png" %}" class="card-img-top img-fluid" alt="...">
           <div class="card-body">
             <h5 class="card-title">Gerardo Muñoz</h5>
             <p class="card-text">5 años de experiencia</p>
@@ -40,7 +37,7 @@
       </div>
       <div class="col- col-sm-3">
         <div class="card" style="width: 18rem;">
-          <img src="{% static "Autoescuela/img/persona2.png" %}" class="card-img-top img-fluid" alt="...">
+          <img src="{% static "aplicacion/img/persona2.png" %}" class="card-img-top img-fluid" alt="...">
           <div class="card-body">
             <h5 class="card-title">Carolina Olate</h5>
             <p class="card-text">6 años de experiencia</p>
@@ -50,7 +47,7 @@
       </div>
       <div class="col- col-sm-3">
         <div class="card" style="width: 18rem;">
-          <img src="{% static "Autoescuela/img/persona3.png" %}" class="card-img-top img-fluid" alt="...">
+          <img src="{% static "aplicacion/img/persona3.png" %}" class="card-img-top img-fluid" alt="...">
           <div class="card-body">
             <h5 class="card-title">Jorge Pizarro</h5>
             <p class="card-text">10 años de experiencia</p>
@@ -67,4 +64,5 @@
 
   </div>
   
-  {%endblock%}
+  {% endblock %} 
+  

@@ -1,17 +1,11 @@
-{% extends "base.html" %}
+{% extends "Autoescuela/base.html" %}
 {% load static %}
+
+
 {% block title %}perfil{% endblock %}
 
 {% block contenido %}
 
-
-
-
-  <section class="d-flex justify-content-start">
-    <div class="container m-2">
-        <a href="{% url 'index' %}" class="btn boton-volver"><i class="bi bi-arrow-left"></i></a>
-    </div>
-</section>
 
 
 
@@ -39,7 +33,7 @@
       </div>
       <div class="col-md-6"> 
         <div class="card text-dark mb-3" style="max-width: 16rem;"> 
-          <img src="{% static "Autoescuela/img/avatar.webp" %}" alt="usuario" style="width: 15rem;">
+          <img src="{% static "aplicacion/img/avatar.webp" %}" alt="usuario" style="width: 15rem;">
         </div>
       </div>
     </div>
@@ -167,22 +161,9 @@
     </div>
   </div>
 
-  {%endblock%}
+  {% endblock %}
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
- 
