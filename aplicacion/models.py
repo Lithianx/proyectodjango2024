@@ -27,7 +27,7 @@ class Producto(models.Model):
     nombre = models.CharField(max_length=100, verbose_name="Nombre del curso")
     precio = models.PositiveIntegerField( verbose_name="Precio")
     cursos = models.CharField(max_length=20, choices=Cursos, verbose_name="Cursos")
-    cupos = models.PositiveIntegerField(verbose_name="Cupos")
+    cupos = models.PositiveIntegerField(verbose_name="Cupos", default=30)
     descripcion = models.TextField(verbose_name="Descripción del curso")
     imagen_curso = models.ImageField(upload_to='cursos/', verbose_name="Imagen Curso")
 

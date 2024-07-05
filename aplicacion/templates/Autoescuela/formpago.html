@@ -6,7 +6,7 @@
 
 {% block contenido %}
 
-
+{% comment %} 
 <div class="d-flex justify-content-center align-items-center">
   <div class="row g-5 containerpago">
     <div class="col-md-5 col-lg-4 order-md-last " class=".needs-validation">
@@ -201,6 +201,18 @@
     })()
   </script>
 
-    </main>
+    </main> {% endcomment %}
 
+
+
+
+    {% comment %} <div class="container">
+      <h2>Formulario de pago</h2>
+      <form method="post">
+          {% csrf_token %}
+          {{ formulario|crispy}}
+          <button type="submit" class="btn btn-primary"></button>
+          <button type= "button" class="btn btn-secondary"><a href="{% url 'form_registrarse' %}">Registrarse</a></button> 
+      </form>
+    </div> {% endcomment %}
 {% endblock %}

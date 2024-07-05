@@ -39,6 +39,8 @@ urlpatterns = [
     path('ventas/', ventas , name='ventas'),
     path('form_inicio_sesion/', form_inicio_sesion , name='form_inicio_sesion'),
     path('form_registrarse/', form_registrarse , name='form_registrarse'),
+    path('carrito/', carrito , name='carrito'),
+    path('agregar_al_carrito/<int:producto_id>/', agregar_al_carrito, name='agregar_al_carrito'),
 
     
 

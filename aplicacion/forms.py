@@ -60,3 +60,12 @@ class RegistroForm(forms.ModelForm):
             raise forms.ValidationError('Las contraseñas no coinciden.')
 
         return cleaned_data
+
+
+
+
+
+class EditarPerfilForm(forms.ModelForm):
+    class Meta:
+        model = Perfil
+        fields = ['nombre_estudiante','correo', 'direccion' , 'foto_perfil' ]
