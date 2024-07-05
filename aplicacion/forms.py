@@ -40,12 +40,11 @@ class RegistroForm(forms.ModelForm):
 
     class Meta:
         model = Perfil
-        fields = ['nombre_estudiante', 'rut', 'correo', 'cursos', 'direccion', 'foto_perfil', 'rol']
+        fields = ['nombre_estudiante', 'rut', 'correo', 'direccion', 'foto_perfil', 'rol']
         widgets = {
             'nombre_estudiante': forms.TextInput(attrs={'class': 'form-control'}),
             'rut': forms.TextInput(attrs={'class': 'form-control'}),
             'correo': forms.EmailInput(attrs={'class': 'form-control'}),
-            'cursos': forms.Select(attrs={'class': 'form-control'}),
             'direccion': forms.TextInput(attrs={'class': 'form-control'}),
             'foto_perfil': forms.ClearableFileInput(attrs={'class': 'form-control'}),
             'rol': forms.Select(attrs={'class': 'form-control'}),
