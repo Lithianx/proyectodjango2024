@@ -129,18 +129,10 @@ def form_registrarse(request):
         form = RegistroForm()
     
     return render(request, 'Autoescuela/form_registrarse.html', {'form': form})
-<<<<<<< HEAD
-
-
-@login_required
-def agregar_carrito(request, curso_id):
-    curso = get_object_or_404(curso, id=curso_id) 
-=======
     
 # @login_required
 # def agregar_carrito(request, curso_id):
 #     curso = get_object_or_404(curso, id=curso_id) 
->>>>>>> main
 
 #     messages.success(request, print('Curso Agregado'))
 #     return redirect('cursos')
