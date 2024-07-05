@@ -1,5 +1,6 @@
 {% extends "Autoescuela/base.html" %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 
 {% block title %}formpago{% endblock %}
@@ -15,23 +16,14 @@
         <span class="badge bg-primary rounded-pill">1</span>
       </h4>
       <ul class="list-group mb-3">
-        <li class="list-group-item d-flex justify-content-between lh-sm">
-          <div>
-            <h6 class="my-0">Curso Clase B</h6>
-          </div>
-          <span class="text-muted">$202.300</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between bg-light">
-          <div class="text-success">
-            <h6 class="my-0">Codigo de promoción</h6>
-            <small>EJEMPLO</small>
-          </div>
-          <span class="text-success">−$50.000</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between">
-          <span>Total</span>
-          <strong>$152.300</strong>
-        </li>
+        {% for item in items_carrito %}
+            <li class="list-group-item d-flex justify-content-between lh-sm">
+                <div>
+                    <h6 class="my-0">{{ item.producto.nombre }}</h6>
+                </div>
+                <span class="text-muted">${{ item.producto.precio }}</span>
+            </li>
+        {% endfor %}
       </ul>
 
       <form class="card p-2 needs-validation" novalidate>
@@ -42,137 +34,14 @@
       </form>
     </div>
     <div class="col-md-7 col-lg-8">
-      <h4 class="mb-3">Formulario de Pago</h4>
-      <form class="needs-validation" novalidate id="formularioPago">
-        <div class="row g-3">
-          <div class="col-sm-6">
-            <label for="firstName" class="form-label">Nombre</label>
-            <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
-            <div class="invalid-feedback">
-                Por favor ingresa un nombre.
-            </div>
-          </div>
-
-          <div class="col-sm-6">
-            <label for="lastName" class="form-label">Apellido</label>
-            <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
-            <div class="invalid-feedback">
-                Por favor ingresa un apellido.
-            </div>
-          </div>
-          <div class="col-12 form-group">
-            <label for="rut" class="form-label">Rut</label>
-            <input type="text" class="form-control" id="rut" name="rut" placeholder="EJ: 205006524" value="" required>
-            <small class="text-muted">Escribir sin puntos ni guión</small>
-
-        </div>
-          <div class="col-12">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" placeholder="tu@example.cl" value="" required>
-            <div class="invalid-feedback">
-            Por favor ingresa un correo.
-            </div>
-          </div>
-
-          <div class="col-12">
-            <label for="address" class="form-label">Direccion</label>
-            <input type="text" class="form-control" id="address" placeholder="" value="" required>
-            <div class="invalid-feedback">
-              Por favor ingresa una dirección.
-            </div>
-          </div>
-
-          <div class="col-md-5 form-group">
-            <label for="Region" class="form-label">Region</label>
-            <select class="form-select" id="Region"  placeholder="Seleccione...." value="" required>
-                <option value="Región de Arica y Parinacota">Región de Arica y Parinacota</option>
-                <option value="Región de Tarapacá">Región de Tarapacá</option>
-                <option value="Región de Antofagasta">Región de Antofagasta</option>
-                <option value="Región de Atacama">Región de Atacama</option>
-                <option value="Región de Coquimbo">Región de Coquimbo</option>
-                <option value="Región de Valparaíso">Región de Valparaíso</option>
-                <option value="Región Metropolitana">Región Metropolitana</option>
-                <option value="Región de O’Higgins">Región de O’Higgins</option>
-                <option value="Región del Maule">Región del Maule</option>
-                <option value="Región del Ñuble">Región del Ñuble</option>
-                <option value="Región del Biobío">Región del Biobío</option>
-                <option value="Región de La Araucanía">Región de La Araucanía</option>
-                <option value="Región de Los Ríos">Región de Los Ríos</option>
-                <option value="Región de Los Lagos">Región de Los Lagos</option>
-                <option value="Región de Aysén">Región de Aysén</option>
-                <option value="Región de Magallanes">Región de Magallanes</option>
-            </select>
-            <div class="invalid-feedback">
-                Por favor ingresa una comuna valida.
-              </div>
-        </div>
-
-          <div class="col-md-4 form-group">
-            <label for="comuna" class="form-label">Comuna</label>
-            <input type="text" class="form-control" id="comuna" placeholder="" value="" required>
-            <div class="invalid-feedback">
-              Por favor ingresa una comuna valida.
-            </div>
-          </div>
-
-        </div>
-
-        <hr class="my-4">
-
-
-        <h4 class="mb-3">Pago</h4>
-
-        <div class="my-3">
-          <div class="form-check">
-            <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked required>
-            <label class="form-check-label" for="credit">Tarjeta de crédito</label>
-          </div>
-          <div class="form-check">
-            <input id="debit" name="paymentMethod" type="radio" class="form-check-input" required>
-            <label class="form-check-label" for="debit">Tarjeta de débito</label>
-          </div>
-        </div>
-
-        <div class="row gy-3">
-          <div class="col-md-6">
-            <label for="cc-name" class="form-label">Nombre del Titular</label>
-            <input type="text" class="form-control" id="cc-name" placeholder="" required>
-            <small class="text-muted">Nombre completo de la tarjeta</small>
-            <div class="invalid-feedback">
-                Por favor ingresa el nombre del titular de la tarjeta.
-            </div>
-          </div>
-
-          <div class="col-md-6">
-            <label for="cc-number" class="form-label">Número de tarjeta</label>
-            <input type="text" class="form-control" id="cc-number" placeholder="" required>
-            <div class="invalid-feedback">
-                Por favor ingresa el número de tarjeta.
-            </div>
-          </div>
-
-          <div class="col-md-3">
-            <label for="cc-expiration" class="form-label">Vencimiento</label>
-            <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
-            <div class="invalid-feedback">
-                Por favor ingresa la fecha de expiración.
-            </div>
-          </div>
-
-          <div class="col-md-3">
-            <label for="cc-cvv" class="form-label">CVV</label>
-            <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
-            <small class="text-muted">Ultimos tres digitos</small>
-            <div class="invalid-feedback">
-                Por favor ingresa el CVV
-            </div>
-          </div>
-        </div>
-
-        <hr class="my-4">
-
-        <button class="w-100 btn btn-primary btn-lg" type="submit" >Realizar compra</button>
-      </form>
+        <form class="needs-validation" id="form-pago" action="{% url 'formpago' %}" method="POST">
+            {% csrf_token %}
+            <!-- Formulario de datos de pago -->
+            {{ form|crispy }}
+            <hr class="my-4">
+            <button class="w-100 btn btn-primary btn-lg" type="submit">Finalizar pago</button>
+        </form>
+    </div>
     </div>
   </div>
 </div>

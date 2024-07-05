@@ -49,20 +49,16 @@ class Compra(models.Model):
 class DetalleCompra(models.Model):
     compra = models.ForeignKey(Compra, on_delete=models.CASCADE, related_name='detalles')
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE, related_name='detalles')
-    tipo_pago = models.CharField(max_length=30, choices=[('Credito', 'Credito'), ('Debito', 'Debito'), ('Transferencia', 'Transferencia')], verbose_name="Tipo de Pago")
     def __str__(self):
         return f"{self.producto.nombre} x {self.tipo_pago}"
     
 
 class CarritoItem(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
-    cantidad = models.PositiveIntegerField()
     compra = models.ForeignKey(Compra, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
-        return f'{self.cantidad} of {self.producto.nombre}'
+        return f'{self.producto.nombre}'
 
-    @property
-    def total_price(self):
-        return self.cantidad * self.producto.precio
+
     

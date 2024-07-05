@@ -60,10 +60,17 @@ class RegistroForm(forms.ModelForm):
             raise forms.ValidationError('Las contraseñas no coinciden.')
 
         return cleaned_data
-
-
-
-
+class PagoForm(forms.Form):
+    nombre = forms.CharField(label='Nombre', max_length=100)
+    apellido = forms.CharField(label='Apellido', max_length=100)
+    email = forms.EmailField(label='Correo Electrónico')
+    rut = forms.CharField(label='RUT', max_length=10)
+    direccion_envio = forms.CharField(label='Dirección de Envío', max_length=255)
+    metodo_pago = forms.ChoiceField(label='Método de Pago', choices=[('credito', 'Tarjeta de Crédito'), ('debito', 'Tarjeta de Débito')])
+    nombre_titular = forms.CharField(label='Nombre del Titular', max_length=100)
+    numero_tarjeta = forms.CharField(label='Número de Tarjeta', max_length=16)
+    vencimiento = forms.CharField(label='Vencimiento', max_length=5)
+    cvv = forms.CharField(label='CVV', max_length=3)
 
 class EditarPerfilForm(forms.ModelForm):
     class Meta:
