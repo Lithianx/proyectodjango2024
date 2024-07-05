@@ -19,7 +19,7 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 
-from aplicacion.views import contacto, cursos, edicionproductos, editarusuario, faqs, form_inicio_sesion, formpago, horas, index, inicioSesionEstud, interfaz_de_compra, miscompras, perfil, perfilAdmin, profesores, ventas,form_inicio_sesion
+from aplicacion.views import *
 
 urlpatterns = [
     path('',index, name='index'),
@@ -38,6 +38,7 @@ urlpatterns = [
     path('profesores/', profesores , name='profesores'),
     path('ventas/', ventas , name='ventas'),
     path('form_inicio_sesion/', form_inicio_sesion , name='form_inicio_sesion'),
+    path('form_registrarse/', form_registrarse , name='form_registrarse'),
 
     
 
@@ -45,5 +46,6 @@ urlpatterns = [
 
 ]
 
-
+if settings.DEBUG:
+    urlpatterns+=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 #urls del sitio
