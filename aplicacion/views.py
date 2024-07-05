@@ -115,7 +115,7 @@ def form_registrarse(request):
 def carrito(request):
     try:
         perfil = Perfil.objects.get(usuario=request.user)
-        items_carrito = CarritoItem.objects.filter(compra__perfil=perfil, compra=None)
+        items_carrito = CarritoItem.objects.all()
     except Perfil.DoesNotExist:
         perfil = None
         items_carrito = []
