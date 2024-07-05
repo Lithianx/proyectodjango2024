@@ -1,7 +1,10 @@
+from pyexpat.errors import messages
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
 from aplicacion.forms import RegistroForm, form_login
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+
 
 
 
@@ -86,6 +89,21 @@ def form_registrarse(request):
         form = RegistroForm()
     
     return render(request, 'Autoescuela/form_registrarse.html', {'form': form})
+    
+@login_required
+def agregar_carrito(request, curso_id):
+    curso = get_object_or_404(curso, id=curso_id) 
+
+    messages.success(request, print('Curso Agregado'))
+    return redirect('cursos')
+
+@login_required
+def eliminar_carrito(request, curso_id):
+    curso = get_object_or_404(curso, id=curso_id) 
+    curso.delete()
+    messages.success(request, print('Curso eliminado'))
+    return redirect('cursos')
+
 
 
 
