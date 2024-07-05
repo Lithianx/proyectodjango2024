@@ -113,12 +113,10 @@ def form_registrarse(request):
 
 @login_required
 def carrito(request):
-    try:
-        perfil = Perfil.objects.get(usuario=request.user)
-        items_carrito = CarritoItem.objects.filter(compra__perfil=perfil, compra=None)
-    except Perfil.DoesNotExist:
-        perfil = None
-        items_carrito = []
+    
+    
+    items_carrito = CarritoItem.objects.all()
+    
 
     total = sum(item.total_price for item in items_carrito)
     return render(request, 'Autoescuela/carrito.html', {'items_carrito': items_carrito, 'total': total, 'perfil': perfil})
