@@ -19,6 +19,7 @@ class Perfil(models.Model):
     direccion = models.CharField(max_length=255, blank=True, null=True, verbose_name="Dirección")
     foto_perfil = models.ImageField(upload_to='usuarios/', blank=True, null=True, verbose_name="Foto de perfil")
     rol = models.CharField(max_length=20, choices=[('Administrador', 'Administrador'), ('Estudiante', 'Estudiante')], verbose_name="Rol")
+    
 
     def __str__(self):
         return f"{self.nombre_estudiante} - {self.correo}"
@@ -53,12 +54,7 @@ class DetalleCompra(models.Model):
         return f"{self.producto.nombre} x {self.tipo_pago}"
     
 
-# class CarritoItem(models.Model):
-#     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
-#     compra = models.ForeignKey(Compra, on_delete=models.CASCADE, null=True, blank=True)
 
-#     def __str__(self):
-#         return f'{self.producto.nombre}'
 
 class CarritoItem(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)

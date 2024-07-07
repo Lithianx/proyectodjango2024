@@ -19,7 +19,7 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 
-from aplicacion.views import *
+from aplicacion.views import agregar_al_carrito, carrito, contacto, cursos, edicionproductos, editarusuario, faqs, form_registrarse, formpago, horas, index, inicioSesionEstud, interfaz_de_compra, miscompras, pagoexitoso, perfil, perfilAdmin, profesores, quitar_del_carrito, ventas   
 
 urlpatterns = [
     path('',index, name='index'),
@@ -37,7 +37,6 @@ urlpatterns = [
     path('perfilAdmin/', perfilAdmin , name='perfilAdmin'),
     path('profesores/', profesores , name='profesores'),
     path('ventas/', ventas , name='ventas'),
-    path('form_inicio_sesion/', form_inicio_sesion , name='form_inicio_sesion'),
     path('form_registrarse/', form_registrarse , name='form_registrarse'),
     path('carrito/', carrito , name='carrito'),
     path('agregar_al_carrito/<int:producto_id>/', agregar_al_carrito, name='agregar_al_carrito'),
@@ -51,6 +50,6 @@ urlpatterns = [
 
 ]
 
-if settings.DEBUG:
-    urlpatterns+=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# if settings.DEBUG:
+#     urlpatterns+=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 #urls del sitio
