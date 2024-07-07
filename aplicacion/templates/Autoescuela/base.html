@@ -11,7 +11,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
   <link rel="stylesheet" href={% static 'aplicacion/estilos/css'%}>
-  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   
 </head>
 <body>
@@ -20,57 +20,65 @@
   <!-- NAV -->
   <nav class="navbar navbar-expand-sm bg-body-tertiary">
     <div class="container-fluid"> 
-      <a href="{% url 'index' %}">
-        <img src="{% static 'aplicacion/img/logo-autoescuela-2_1.png' %}" width="100px">
-    </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'cursos'%}">Cursos</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'faqs' %}">FAQ's</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'profesores' %}">Profesores</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'contacto' %}">Contacto</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'miscompras' %}">Mis Compras</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'perfil' %}">Perfil</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Iniciar Sesión
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="{% url 'form_inicio_sesion' %}">Estudiante</a></li>
-              
-              <li><a class="dropdown-item" href="{% url 'perfilAdmin' %}">Administracion</a></li>
+        <a href="{% url 'index' %}">
+            <img src="{% static 'aplicacion/img/logo-autoescuela-2_1.png' %}" width="100px">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'cursos'%}">Cursos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'faqs' %}">FAQ's</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'profesores' %}">Profesores</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'contacto' %}">Contacto</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'miscompras' %}">Mis Compras</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'perfil' %}">Perfil</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Iniciar Sesión
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'login' %}">Estudiante</a></li>
+                        <li><a class="dropdown-item" href="{% url 'perfilAdmin' %}">Administracion</a></li>
+                    </ul>
+                </li>
             </ul>
-          </li>
-        </ul>
-        <ul class="navbar-nav d-flex flex-row me-1">
-          <li class="nav-item me-3 me-lg-0">
-            <a class="nav-link" href="{% url 'carrito' %}"><i class="bi bi-cart"></i></a>
-          </li>
-        </ul>
-      </div>
+            <ul class="navbar-nav d-flex flex-row me-1">
+                <li class="nav-item me-3 me-lg-0">
+                    {% if usuario_autenticado and tiene_compras %}
+                        <a class="nav-link" href="{% url 'carrito' %}"><i class="bi bi-cart"></i></a>
+                    {% else %}
+                        <a class="nav-link disabled text-muted" href="#" tabindex="-1" aria-disabled="true"><i class="bi bi-cart"></i></a>
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
     </div>
-  </nav>
+</nav>
+
   <!-- NAV -->
-  <section class="d-flex justify-content-start">
-    <div class="container m-2">
-        <a href="{% url 'perfilAdmin' %}" class="btn boton-volver"><i class="bi bi-arrow-left"></i></a>
-    </div>
-</section>
+  <button onclick="goBack()" type="button" class="btn btn-danger">Volver</button>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+
+
 {% block contenido %}
 {% endblock %}
 
@@ -123,8 +131,9 @@
               <i class="fas fa-gem me-3"></i>Autoescuela
             </h6>
             <p>
-              Here you can use rows and columns to organize your footer content. Lorem ipsum
-              dolor sit amet, consectetur adipisicing elit.
+              Autoescuela Chillan
+              <br>
+                Inicia tu camino!
             </p>
           </div>
           <!-- Grid column -->

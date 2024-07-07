@@ -1,7 +1,7 @@
 from django.contrib import messages  
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
-from aplicacion.forms import ComprarCursoForm, form_login, PagoForm,RegistroForm
+from aplicacion.forms import ComprarCursoForm, PagoForm,RegistroForm,form_login
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from aplicacion.models import CarritoItem, Compra, DetalleCompra, Perfil, Producto
@@ -132,7 +132,7 @@ def form_inicio_sesion(request):
             return redirect('index')
     else:
         form = form_login()
-    return render(request, 'Autoescuela/form_inicio_sesion.html', {'formulario': form})
+    return render(request, 'login.html', {'form': form})
 
 
 @login_required
@@ -195,6 +195,24 @@ def listar_cursos(request):
     cursos = Producto.objects.all()
     return render(request, 'Autoescuela/cursos.html', {'cursos': cursos})
 
+
+
+def navbar_context(request):
+    usuario_autenticado = request.user.is_authenticated
+    tiene_compras = False
+
+    if usuario_autenticado:
+        try:
+            perfil = Perfil.objects.get(usuario=request.user)
+            items_carrito = CarritoItem.objects.filter(compra__perfil=perfil, compra=None)
+            tiene_compras = items_carrito.exists()
+        except Perfil.DoesNotExist:
+            pass
+
+    return {
+        'usuario_autenticado': usuario_autenticado,
+        'tiene_compras': tiene_compras,
+    }
 
 
 

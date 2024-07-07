@@ -4,7 +4,7 @@
 
 
 
-{% block title %}form_inicio_sesion{% endblock %}
+{% block title %}login{% endblock %}
 
 {% block contenido %}
 
@@ -15,8 +15,8 @@
     <h2>Iniciar Sesión</h2>
     <form method="post">
         {% csrf_token %}
-        {{ formulario|crispy}}
-        <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+        {{ form|crispy}}
+        <button type="submit" class="btn btn-primary">Iniciar Sesion</button>
         <button type= "button" class="btn btn-secondary"><a href="{% url 'form_registrarse' %}">Registrarse</a></button> 
     </form>
 </div>
