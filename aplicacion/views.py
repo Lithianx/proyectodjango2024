@@ -76,26 +76,25 @@ def interfaz_de_compra(request):
     return render(request, 'Autoescuela/interfaz_de_compra.html')
 
 def miscompras(request):
-    compras = Compra.objects.filter(perfil=request.user)
-    return render(request, 'Autoescuela/miscompras.html', {'compras': compras})
+    compras = Compra.objects.filter(perfil=request.user).order_by('fecha_pedido')
+    compras_con_id_local = [(idx + 1, compra) for idx, compra in enumerate(compras)]
+    return render(request, 'Autoescuela/miscompras.html', {'compras_con_id_local': compras_con_id_local})
+
 
 def perfil(request):
-    usuario = Perfil.objects.get(usuario=request.user)
+    usuario = Perfil.objects.get(usuario=request.user)  # Asegurándonos de que se obtiene el perfil correcto
 
     if request.method == 'POST':
-        form = EditarPerfilForm(request.POST, request.FILES, instance=usuario) # instance hace que el formulario se llene con los datos del usuario
+        form = EditarPerfilForm(request.POST, request.FILES, instance=usuario)
         if form.is_valid():
-            usuario.usuario.username = form.cleaned_data.get('nombre_usuario')
-            form.save()
+            form.save()  # Guardamos los cambios en el perfil
+            messages.success(request, 'Perfil actualizado exitosamente.')
             return redirect('perfil')
     else:
         form = EditarPerfilForm(instance=usuario)
 
-    data = {
-        'usuario': usuario,
-        'form': form
-    }
-    return render(request, 'Autoescuela/perfil.html', data)
+    return render(request, 'Autoescuela/perfil.html', {'usuario': usuario, 'form': form})
+
 
 def perfilAdmin(request):
     return render(request, 'Autoescuela/perfilAdmin.html')

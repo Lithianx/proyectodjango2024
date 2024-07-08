@@ -38,6 +38,7 @@ class Producto(models.Model):
 
 class Compra(models.Model):
     nombre_curso = models.CharField(max_length=100, verbose_name="Nombre del curso")
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE, verbose_name="Producto Asociado")
     fecha_pedido = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de compra")
     precio = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Precio")
     estado = models.CharField(max_length=50, choices=[('Proceso', 'Proceso'), ('Completado', 'Completado'), ('Cancelado', 'Cancelado')], verbose_name="Estado")
