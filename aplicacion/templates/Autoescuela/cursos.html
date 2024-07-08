@@ -13,6 +13,16 @@
 </div>
 
 <div class="container mt-5">
+    {% if messages %}
+    <div class="alert alert-danger">
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    
     <div class="card-deck">
         {% for curso in cursos %}
         <div class="col-md-4 mb-4"> 
@@ -36,28 +46,6 @@
         {% endfor %}
     </div>
 </div>
-
-
-
-{% comment %} <script>
-    // Función para redireccionar al carrito después de enviar el formulario
-    document.addEventListener('DOMContentLoaded', function() {
-        const forms = document.querySelectorAll('[id^="comprar-curso-form-"]');
-        
-        forms.forEach(form => {
-            form.addEventListener('submit', function(event) {
-                event.preventDefault(); // Prevenir el envío automático del formulario
-                
-                // Envío del formulario
-                this.submit();
-                
-                // Redirección a la página de carrito después de enviar el formulario
-                window.location.href = '{% url 'carrito' %}';
-            });
-        });
-    });
-</script> {% endcomment %}
-
 
 <div class="container mt-5 mb-5">
     <div class="row">
