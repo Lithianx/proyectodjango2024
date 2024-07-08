@@ -113,7 +113,11 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = 'index'
+<<<<<<< HEAD
 LOGIN_URL = 'login'
+=======
+LOGIN_URL = 'form_inicio_sesion'
+>>>>>>> 7fc4a05b4fab5783235a389f76f2a9f63a1dd663
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
