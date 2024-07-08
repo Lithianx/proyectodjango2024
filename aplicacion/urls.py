@@ -19,7 +19,7 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 
-from aplicacion.views import agregar_al_carrito, carrito, contacto, cursos, edicionproductos, editarusuario, faqs, form_registrarse, formpago, horas, index, inicioSesionEstud, interfaz_de_compra, miscompras, pagoexitoso, perfil, perfilAdmin, profesores, quitar_del_carrito, ventas   
+from aplicacion.views import *   
 
 urlpatterns = [
     path('',index, name='index'),
@@ -42,6 +42,8 @@ urlpatterns = [
     path('agregar_al_carrito/<int:producto_id>/', agregar_al_carrito, name='agregar_al_carrito'),
     path('quitar_del_carrito/<int:producto_id>/', quitar_del_carrito, name='quitar_del_carrito'),
     path('pagoexitoso/', pagoexitoso, name='pagoexitoso'),
+    path('cerrarSesion/', cerrar_sesion, name='cerrarSesion'),
+
     
 
     

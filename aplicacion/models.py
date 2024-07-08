@@ -40,7 +40,7 @@ class Compra(models.Model):
     nombre_curso = models.CharField(max_length=100, verbose_name="Nombre del curso")
     fecha_pedido = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de compra")
     precio = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Precio")
-    estado = models.CharField(max_length=50, choices=[('Pendiente', 'Pendiente'), ('Completado', 'Completado'), ('Cancelado', 'Cancelado')], verbose_name="Estado")
+    estado = models.CharField(max_length=50, choices=[('Proceso', 'Proceso'), ('Completado', 'Completado'), ('Cancelado', 'Cancelado')], verbose_name="Estado")
     perfil = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Perfil", null=True, blank=True)
     
 

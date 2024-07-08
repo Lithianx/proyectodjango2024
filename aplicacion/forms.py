@@ -19,7 +19,7 @@ class RegistroForm(UserCreationForm):
         fields = ['username', 'email', 'password1', 'password2'] 
 
 
-class RegistroForm(forms.ModelForm):
+class RegistroAdminForm(forms.ModelForm):
     username = forms.CharField(
         max_length=150,
         required=True,
