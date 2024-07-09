@@ -1,139 +1,124 @@
 {% extends "Autoescuela/base.html" %}
 {% load static %}
 
-
 {% block title %}perfil{% endblock %}
 
 {% block contenido %}
-
-
-
-
-<div class="container mt-5 ">
+<div class="container mt-5">
     <div class="row">
-      <div class="col-md-6"> 
-        <div class="card text-dark mb-3" style="max-width: 50rem;">
-          <div class="card-header">INFORMACION DE LA CUENTA</div>
-          <div class="card-body"> 
-            <h6>Nombre: Ignacio Sorko</h6>
-            <hr>
-            <h6>Correo: ig.sorko@duocuc.cl</h6>
-            <hr>
-            <h6>Direccion: Villarrica 1606</h6>
-            <hr>
-            <h6>Cursos: Clase B</h6>
-            <hr>
-            <h6>ID: 50</h6>
-            <hr>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editarUs">
-                Editar
-            </button>
-          </div>
+        <div class="col-md-6"> 
+            <div class="card text-dark mb-3" style="max-width: 50rem;">
+                <div class="card-header">INFORMACIÓN DE LA CUENTA</div>
+                <div class="card-body"> 
+                    <h6>Nombre: {{ usuario.nombre_estudiante }}</h6>
+                    <hr>
+                    <h6>Correo: {{ usuario.correo }}</h6>
+                    <hr>
+                    <h6>Dirección: {{ usuario.direccion }}</h6>
+                    <hr>
+                    <h6>Cursos: 
+                        {% for curso in request.user.profile.cursos.all %}
+                            {{ curso.nombre }}
+                            {% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </h6>
+                    <hr>
+
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editarUs">
+                        Editar
+                    </button>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="col-md-6"> 
-        <div class="card text-dark mb-3" style="max-width: 16rem;"> 
-          <img src="{% static "aplicacion/img/avatar.webp" %}" alt="usuario" style="width: 15rem;">
+        <div class="col-md-6"> 
+            <div class="card text-dark mb-3" style="max-width: 16rem;"> 
+                <img src="{% static 'aplicacion/img/avatar.webp' %}" alt="usuario" style="width: 15rem;">
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-  
-  <div class="container mt-5">
-    <div class="row">
-      <div class="col-12">
-        <h5>
-          Progreso de mi curso
-        </h5>
-        <div class="progress" role="progressbar" aria-label="curso" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-          <div class="progress-bar" style="width: 25%">25%</div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-  
+</div>
 
 
-  <div class="container-fluid contenedor-principal">
+
+<div class="container-fluid contenedor-principal">
     <h2 class="mt-4 text-center">Horario Semanal</h2>
     <div class="row">
-      <div class="col">
-        <table class="horario-table">
-          <thead>
-            <tr>
-              <th>Hora</th>
-              <th>Lunes</th>
-              <th>Martes</th>
-              <th>Miércoles</th>
-              <th>Jueves</th>
-              <th>Viernes</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>10:00 - 11:30</td>
-              <td>-</td>
-              <td>Teórico</td>
-              <td>Teórico</td>
-              <td>-</td>
-              <td>Teórico</td>
-            </tr>
-            <tr>
-              <td>11:30 - 13:00</td>
-              <td>Práctico</td>
-              <td>Práctico</td>
-              <td>-</td>
-              <td>Práctico</td>
-              <td>Práctico</td>
-            </tr>
-            <tr>
-              <td>13:00 a 14:30</td>
-              <td>Teórico</td>
-              <td>Teórico</td>
-              <td>-</td>
-              <td>Teórico</td>
-              <td>Teórico</td>
-            </tr>
-            <tr>
-              <td>14:30 - 16:00</td>
-              <td>Práctico</td>
-              <td>Práctico</td>
-              <td>-</td>
-              <td>Práctico</td>
-              <td>-</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+        <div class="col">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Hora</th>
+                        <th>Lunes</th>
+                        <th>Martes</th>
+                        <th>Miércoles</th>
+                        <th>Jueves</th>
+                        <th>Viernes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>10:00 - 11:30</td>
+                        <td>-</td>
+                        <td>Teórico</td>
+                        <td>Teórico</td>
+                        <td>-</td>
+                        <td>Teórico</td>
+                    </tr>
+                    <tr>
+                        <td>11:30 - 13:00</td>
+                        <td>Práctico</td>
+                        <td>Práctico</td>
+                        <td>-</td>
+                        <td>Práctico</td>
+                        <td>Práctico</td>
+                    </tr>
+                    <tr>
+                        <td>13:00 a 14:30</td>
+                        <td>Teórico</td>
+                        <td>Teórico</td>
+                        <td>-</td>
+                        <td>Teórico</td>
+                        <td>Teórico</td>
+                    </tr>
+                    <tr>
+                        <td>14:30 - 16:00</td>
+                        <td>Práctico</td>
+                        <td>Práctico</td>
+                        <td>-</td>
+                        <td>Práctico</td>
+                        <td>-</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-  </div>
-      
+</div>
+
 <!-- Modal para editar perfil -->
-<div class="modal fade" id="editarUs" tabindex="-1" aria-labelledby="#editUserForm" aria-hidden="true">
+<div class="modal fade" id="editarUs" tabindex="-1" aria-labelledby="editUserForm" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="#editUserForm">Editar Datos</h5>
+                <h5 class="modal-title" id="editUserForm">Editar Datos</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <!-- Formulario para editar perfil -->
-                <form id="editUserFormperfil" class=".needs-validation">
-                  <div class="mb-3">
-                    <label for="nombre" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" id="nombreP" name="nombreP">
-                  </div>
-                  <div class="mb-3">
-                    <label for="correo" class="form-label">Correo</label>
-                    <input type="text" class="form-control" id="correo" name="correo">
-                  </div>
-                  <div class="mb-3">
-                    <label for="direccion" class="form-label">Direccion</label>
-                    <input type="text" class="form-control" id="direccion" name="direccion">
-                  </div>
-                  <!-- Botón de guardar -->
-                  <button type="submit" class="btn btn-primary" aria-labelledby="#editUserForm">Guardar</button>
+                <form id="editUserForm" class="needs-validation">
+                    <div class="mb-3">
+                        <label for="nombreP" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="nombreP" name="nombreP" value="{{ request.user.get_full_name }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="correo" class="form-label">Correo</label>
+                        <input type="email" class="form-control" id="correo" name="correo" value="{{ request.user.email }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="direccion" class="form-label">Dirección</label>
+                        <input type="text" class="form-control" id="direccion" name="direccion" value="{{ request.user.profile.direccion }}" required>
+                    </div>
+                    <!-- Botón de guardar -->
+                    <button type="submit" class="btn btn-primary">Guardar</button>
                 </form>
                 <!-- Mensaje de guardado exitoso (oculto por defecto) -->
                 <div class="alert alert-success mt-3 d-none" role="alert">
@@ -142,28 +127,24 @@
             </div>
         </div>
     </div>
-  </div>
-<!--Modal-->
+</div>
+
+<!-- Modal de eliminación -->
 <div class="modal fade" id="eliminarUs" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Mensaje de Sistema</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Mensaje de Sistema</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ¡Eliminación de cuenta realizada!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
         </div>
-        <div class="modal-body">
-          ¡Eliminacion de cuenta realizada!
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        </div>
-      </div>
     </div>
-  </div>
+</div>
 
-  {% endblock %}
-
-
-
-
-
+{% endblock %}

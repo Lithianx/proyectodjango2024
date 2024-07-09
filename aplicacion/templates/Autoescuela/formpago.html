@@ -15,8 +15,8 @@
         {% csrf_token %}
         {{ form|crispy }}
         <h3>Total a pagar: {{ total }}</h3>
-        <a href="{% url 'pagoexitoso' %}" class="btn btn-success">PAGAR</a>
-    </form>
+        <button class="w-100 btn btn-primary btn-lg" type="submit">PAGAR</button>
+      </form>
     </div>
     <div class="col"></div>
   </div>

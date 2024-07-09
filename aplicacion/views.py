@@ -1,7 +1,7 @@
 from django.contrib import messages  
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
-from aplicacion.forms import ComprarCursoForm, PagoForm,RegistroForm,form_login
+from aplicacion.forms import ComprarCursoForm, EditarPerfilForm, PagoForm,RegistroForm,form_login
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from aplicacion.models import CarritoItem, Compra, DetalleCompra, Perfil, Producto
@@ -38,24 +38,30 @@ def formpago(request):
     if request.method == 'POST':
         form = PagoForm(request.POST)
         if form.is_valid():
-            perfil = request.user if request.user.is_authenticated else None
+            if request.user.is_authenticated:
+                perfil = request.user
+            else:
+                perfil = None
+
+            # Verificar si el usuario ya compró alguno de los cursos en el carrito
+            for item in items_carrito:
+                if Compra.objects.filter(perfil=perfil, detalles__producto=item.producto).exists():
+                    messages.error(request, f'Ya compraste el curso {item.producto.nombre}.')
+                    return redirect('carrito')
 
             # Crea la instancia de Compra
-            compra = Compra(
+            compra = Compra.objects.create(
                 nombre_curso=form.cleaned_data['nombre'],  # Ajusta según tus necesidades
                 precio=total,
-                estado='Pendiente',
+                estado='Proceso',
                 perfil=perfil
             )
-            compra.save()
 
-            # Crea las instancias de DetalleCompra
+            # Crea las instancias de DetalleCompra asociadas a la compra
             for item in items_carrito:
-                detalle_compra = DetalleCompra(
-                    compra=compra,
+                compra.detalles.create(
                     producto=item.producto,
                 )
-                detalle_compra.save()
 
             # Vacía el carrito después de realizar la compra
             items_carrito.delete()
@@ -76,11 +82,25 @@ def interfaz_de_compra(request):
     return render(request, 'Autoescuela/interfaz_de_compra.html')
 
 def miscompras(request):
-    compras = Compra.objects.filter(perfil=request.user)
-    return render(request, 'Autoescuela/miscompras.html', {'compras': compras})
+    compras = Compra.objects.filter(perfil=request.user).order_by('fecha_pedido')
+    compras_con_id_local = [(idx + 1, compra) for idx, compra in enumerate(compras)]
+    return render(request, 'Autoescuela/miscompras.html', {'compras_con_id_local': compras_con_id_local})
+
 
 def perfil(request):
-    return render(request, 'Autoescuela/perfil.html')
+    usuario = Perfil.objects.get(usuario=request.user)  # Asegurándonos de que se obtiene el perfil correcto
+
+    if request.method == 'POST':
+        form = EditarPerfilForm(request.POST, request.FILES, instance=usuario)
+        if form.is_valid():
+            form.save()  # Guardamos los cambios en el perfil
+            messages.success(request, 'Perfil actualizado exitosamente.')
+            return redirect('perfil')
+    else:
+        form = EditarPerfilForm(instance=usuario)
+
+    return render(request, 'Autoescuela/perfil.html', {'usuario': usuario, 'form': form})
+
 
 def perfilAdmin(request):
     return render(request, 'Autoescuela/perfilAdmin.html')
@@ -93,34 +113,57 @@ def ventas(request):
 
 def form_registrarse(request):
     if request.method == 'POST':
-        form = RegistroForm(request.POST, request.FILES)
+        form = RegistroForm(request.POST)
         if form.is_valid():
-            user = User.objects.create_user(
-                username=form.cleaned_data['username'],
-                email=form.cleaned_data['email'],
-                password=form.cleaned_data['password']
-            )
-            perfil = form.save(commit=False)
-            perfil.usuario = user
-            perfil.save()
-            login(request, user)
-            return redirect('index')
+            username = form.cleaned_data['username']
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password1']
+            
+            print(f"Username: {username}, Email: {email}, Password: {password}")
+            
+            user = form.save(commit=False)
+            user.set_password(password)
+            user.save()
+            
+            print(f"User saved: {user}")
+            
+            user = authenticate(request, username=username, password=password)
+            print(f"Authenticated user: {user}")
+            
+            if user is not None:
+                login(request, user)
+                
+                perfil = Perfil.objects.create(usuario=user, correo=email, rol='Estudiante', nombre_estudiante=username)
+                perfil.save()
+                
+                messages.success(request, 'Registro exitoso.')
+                return redirect('login')
+            else:
+                messages.error(request, 'Error al autenticar el usuario.')
+                print("Authentication failed.")
+        else:
+            messages.error(request, 'Formulario no válido. Corrige los errores indicados.')
+            print("Formulario no válido.")
     else:
         form = RegistroForm()
     
     return render(request, 'Autoescuela/form_registrarse.html', {'form': form})
 
 
+
+
+
 @login_required
 def carrito(request):
-    
-    
-    items_carrito = CarritoItem.objects.all()
-    
-
+    items_carrito = CarritoItem.objects.filter(compra=None)
     total = sum(item.total_price for item in items_carrito)
-    return render(request, 'Autoescuela/carrito.html', {'items_carrito': items_carrito, 'total': total, 'perfil': perfil})
+    tiene_items = items_carrito.exists()  # Verifica si hay items en el carrito
 
+    return render(request, 'Autoescuela/carrito.html', {
+        'items_carrito': items_carrito,
+        'total': total,
+        'tiene_items': tiene_items,  # Pasa esta variable al contexto del template
+    })
 
 
 def form_inicio_sesion(request):
@@ -145,19 +188,29 @@ def eliminar_carrito(request, producto_id):
 
 @login_required
 def agregar_al_carrito(request, producto_id):
-    if request.method == 'POST':
-        form = ComprarCursoForm(request.POST)
-        if form.is_valid():
-            producto_id = form.cleaned_data['producto_id']
-            producto = get_object_or_404(Producto, id=producto_id)
-            carrito_item, created = CarritoItem.objects.get_or_create(producto=producto, compra=None, defaults={'cantidad': 1})
+    producto = get_object_or_404(Producto, id=producto_id)
+    
+    # Verificar si el usuario ya compró este curso
+    if Compra.objects.filter(perfil=request.user, detalles__producto=producto).exists():
+        messages.error(request, 'Ya has comprado este curso.')
+        return redirect('cursos')
+    
+    # Verificar si el curso ya está en el carrito
+    if CarritoItem.objects.filter(producto=producto, compra=None).exists():
+        messages.error(request, 'Este curso ya está en tu carrito.')
+        return redirect('cursos')
+    
+    # Si no existe, agregar el curso al carrito
+    carrito_item, created = CarritoItem.objects.get_or_create(
+        producto=producto, compra=None, defaults={'cantidad': 1}
+    )
+    
+    if not created:
+        carrito_item.cantidad += 1
+        carrito_item.save()
 
-            if not created:
-                carrito_item.cantidad += 1
-                carrito_item.save()
-
-            return redirect('carrito')
-    return redirect('cursos')
+    messages.success(request, 'Curso agregado al carrito.')
+    return redirect('carrito')
 
 # @login_required
 # def ver_carrito(request):
@@ -177,7 +230,7 @@ def agregar_al_carrito(request, producto_id):
 def quitar_del_carrito(request, producto_id):
     item = get_object_or_404(CarritoItem, id=producto_id, compra=None)
     item.delete()
-    return redirect(request,'carrito')
+    return redirect('carrito')
 
 @login_required
 def proceder_a_compra(request):
@@ -203,7 +256,7 @@ def navbar_context(request):
 
     if usuario_autenticado:
         try:
-            perfil = Perfil.objects.get(usuario=request.user)
+            perfil =request.user
             items_carrito = CarritoItem.objects.filter(compra__perfil=perfil, compra=None)
             tiene_compras = items_carrito.exists()
         except Perfil.DoesNotExist:
@@ -214,6 +267,10 @@ def navbar_context(request):
         'tiene_compras': tiene_compras,
     }
 
+def cerrar_sesion(request):
+    CarritoItem.objects.all().delete()
+    logout(request)
+    return redirect('index')
 
 
 
