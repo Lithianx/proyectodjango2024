@@ -11,12 +11,12 @@
     <h1 class="text-center">Administración - Cursos y Usuarios</h1>
     
     <div class="mt-5">
-        <h2>Cursos Comprados</h2>
+        <h2>Historial de cursos</h2>
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th>id perfil</th>
-                    <th>Curso</th>
+                    <th>producto</th>
                     <th>Comprador</th>
                     <th>Fecha de Compra</th>
                     <th>Acciones</th>
@@ -26,7 +26,7 @@
                 {% for compra in compras %}
                 <tr>
                     <td>{{ compra.id }}</td>
-                    <td>{{ compra.nombre_curso }}</td>
+                    <td>{{ compra.producto.nombre }}</td>
                     <td>{{ compra.perfil }}</td>
                     <td>{{ compra.fecha_pedido }}</td>
                     <td>
@@ -84,6 +84,48 @@
         <a href="{% url 'crear_perfil' %}" class="btn btn-primary">Crear Perfil</a>
     </div>
 </div>
+
+{% comment %} <div class="container mt-5">
+    <h1 class="text-center">Lista de Productos</h1>
+    <div class="mt-5">
+        <h2>Productos</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Cursos</th>
+                    <th>Cupos</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for producto in productos %}
+                <tr>
+                    <td>{{ producto.id }}</td>
+                    <td>{{ producto.nombre }}</td>
+                    <td>{{ producto.precio }}</td>
+                    <td>{{ producto.cursos }}</td>
+                    <td>{{ producto.cupos }}</td>
+                    <td>
+                        <a href="{% url 'editar_producto' producto.id %}" class="btn btn-sm btn-warning">Editar</a>
+                        <a href="{% url 'eliminar_producto' producto.id %}" class="btn btn-sm btn-danger">Eliminar</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" class="text-center">No hay productos disponibles.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{% url 'crear_producto' %}" class="btn btn-primary">Crear Producto</a>
+    </div>
+</div> {% endcomment %}
+
+
+
   
 
 {% endblock %}

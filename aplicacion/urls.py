@@ -46,15 +46,16 @@ urlpatterns = [
     
 
     #SECCION CRUD
-    # path('perfil_admin/', perfil_admin, name='perfil_admin'),
+    
 
-    path('editar_producto_form/', editar_producto_form, name='editar_producto_form'),
+    path('editar_producto_form/<int:id>/', editar_producto_form, name='editar_producto_form'),
     path('editar_perfil_form/<int:id>/', editar_perfil_form, name='editar_perfil_form'),
-    path('editar_compra_form/<int:id>', editar_compra_form, name='editar_compra_form'),
+    path('editar_compra_form/<int:id>/', editar_compra_form, name='editar_compra_form'),
     path('confirmar_eliminacion_compra/<int:id>/', confirmar_eliminacion_compra, name='confirmar_eliminacion_compra'),
     path('confirmar_eliminacion_perfil/<int:id>/', confirmar_eliminacion_perfil, name='confirmar_eliminacion_perfil'),
 
     path('crear_producto/', crear_producto, name='crear_producto'),
+    path('listar_productos/<int:id>', listar_productos, name='listar_productos'),
     path('editar_producto/<int:id>/', editar_producto, name='editar_producto'),
     path('eliminar_producto/<int:id>/', eliminar_producto, name='eliminar_producto'),
     path('crear_perfil/', crear_perfil, name='crear_perfil'),

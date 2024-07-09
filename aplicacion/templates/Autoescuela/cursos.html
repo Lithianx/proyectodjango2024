@@ -12,32 +12,32 @@
     <p>¡Capacítate en la mejor autoescuela!!!</p> 
 </div>
 
-<div class="container mt-5">
-    {% if messages %}
-    <div class="alert alert-danger">
-        <ul>
-            {% for message in messages %}
-            <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
+<div class="container-fluid m-3">
+    <div class="row">
+
     </div>
-    {% endif %}
+
+</div>
+
     
-    <div class="card-deck">
+<div class="card-deck">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
         {% for curso in cursos %}
-        <div class="col-md-4 mb-4"> 
-            <div class="card">
-                <img src="{{ curso.imagen_curso.url }}" class="card-img-top" alt="Imagen del curso">
+        <div class="col mb-4">
+            <div class="card h-100">
+                
                 <div class="card-body">
                     <h3 class="card-title">{{ curso.nombre }}</h3>
                     <p class="card-text">{{ curso.descripcion }}</p>
                     <p class="card-text">Precio: {{ curso.precio }}</p>
+                </div>
+                <div class="card-footer">
                     <form id="comprar_curso_form{{ curso.id }}" method="post" action="{% url 'agregar_al_carrito' curso.id %}">
                         {% csrf_token %}
                         {{ comprar_curso_form.as_p }}
                         <input type="hidden" name="producto_id" value="{{ curso.id }}">
-                        <div class="col my-5">
-                            <button type="submit" class="btn btn-primary">Comprar curso</button>
+                        <div class="col mt-4 mb-4">
+                            <button type="submit" class="btn btn-primary btn-block">Comprar curso</button>
                         </div>
                     </form>
                 </div>

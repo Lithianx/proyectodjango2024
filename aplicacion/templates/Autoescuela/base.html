@@ -17,7 +17,7 @@
 <body>
 
 
-  <!-- NAV -->
+  {% comment %} <!-- NAV -->
   <nav class="navbar navbar-expand-sm bg-body-tertiary">
     <div class="container-fluid"> 
         <a href="{% url 'index' %}">
@@ -75,8 +75,78 @@
         </div>
     </div>
 </nav>
+<!-- NAV --> {% endcomment %}
+
+
+
 <!-- NAV -->
+<nav class="navbar navbar-expand-sm bg-body-tertiary">
+  <div class="container-fluid"> 
+      <a href="{% url 'index' %}">
+          <img src="{% static 'aplicacion/img/logo-autoescuela-2_1.png' %}" width="100px">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav ms-auto">
+            <h3>
+              
+            </h3>
+              <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="{% url 'cursos' %}">Cursos</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="{% url 'faqs' %}">FAQ's</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="{% url 'profesores' %}">Profesores</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="{% url 'contacto' %}">Contacto</a>
+              </li>
+              {% if user.is_authenticated %}
+                  {% if user.is_superuser %}
+                  <li class="nav-item">
+                      <a class="nav-link" href="{% url 'perfilAdmin' %}">Administración</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{% url 'cerrarSesion' %}">Cerrar Sesión</a>
+                  </li>
+                  {% else %}
+                  <li class="nav-item">
+                      <a class="nav-link" href="{% url 'miscompras' %}">Mis Compras</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{% url 'perfil' %}">Perfil</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{% url 'carrito' %}">
+                          <i class="bi bi-cart"></i>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{% url 'cerrarSesion' %}">Cerrar Sesión</a>
+                  </li>
+                  {% endif %}
+              {% else %}
+              <li class="nav-item">
+                  <a class="nav-link" href="{% url 'login' %}">Iniciar Sesión</a>
+              </li>
+              {% endif %}
+          </ul>
+      </div>
+  </div>
+</nav>
+<!-- NAV -->
+
+{% if user.is_authenticated %}
+  <strong>Bienvenido, {{ user.username }}</strong>
+{% endif %}
+  <div class="m-3" >
   <button onclick="goBack()" type="button" class="btn btn-danger">Volver</button>
+  </div>
+  
 
     <script>
         function goBack() {
@@ -84,50 +154,29 @@
         }
     </script>
 
-
+    <div>
+      {% if messages %}
+      <div class="alert alert-success">
+          <ul>
+              {% for message in messages %}
+              <li>{{ message }}</li>
+              {% endfor %}
+          </ul>
+      </div>
+    
+      {% endif %}
 {% block contenido %}
-{% endblock %}
+{% endblock %} 
 
 
 
     <!-- Footer -->
 <footer class="text-center text-lg-start bg-body-tertiary text-muted">
-    <!-- Section: Social media -->
-    <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
-      <!-- Left -->
-      <div class="me-5 d-none d-lg-block">
-        <span>Conecta con nosotros en nuestras redes sociales:</span>
-      </div>
-      <!-- Left -->
-  
-      <!-- Right -->
-      <div>
-        <a href="" class="me-4 text-reset">
-          <i class="fab fa-facebook-f"></i>
-        </a>
-        <a href="" class="me-4 text-reset">
-          <i class="fab fa-twitter"></i>
-        </a>
-        <a href="" class="me-4 text-reset">
-          <i class="fab fa-google"></i>
-        </a>
-        <a href="" class="me-4 text-reset">
-          <i class="fab fa-instagram"></i>
-        </a>
-        <a href="" class="me-4 text-reset">
-          <i class="fab fa-linkedin"></i>
-        </a>
-        <a href="" class="me-4 text-reset">
-          <i class="fab fa-github"></i>
-        </a>
-      </div>
-      <!-- Right -->
-    </section>
-    <!-- Section: Social media -->
+    
   
     <!-- Section: Links  -->
     <section class="">
-      <div class="container text-center text-md-start mt-5">
+      <div class="container text-center text-md-start mt-5 p-2">
         <!-- Grid row -->
         <div class="row mt-3">
           <!-- Grid column -->
@@ -178,7 +227,7 @@
               <a href="{% url 'miscompras' %}" class="text-reset">Mis Compras</a>
             </p>
             <p>
-              <a href="{% url 'inicioSesionEstud' %}" class="text-reset">Iniciar Sesión</a>
+              <a href="{% url 'login' %}" class="text-reset">Iniciar Sesión</a>
             </p>
           </div>
           <!-- Grid column -->
@@ -187,12 +236,12 @@
           <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
             <!-- Links -->
             <h6 class="text-uppercase fw-bold mb-4">Contacto</h6>
-            <p><i class="fas fa-home me-3"></i>Los nogales #335</p>
+            <p>Los nogales #335</p>
             <p>
-              <i class="fas fa-envelope me-3"></i>
+              
               escuelachillan@gmail.com
             </p>
-            <p><i class="fas fa-phone me-3"></i>22 2256368</p>
+            <p>22 2256368</p>
           </div>
           <!-- Grid column -->
         </div>
