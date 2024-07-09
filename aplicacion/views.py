@@ -91,15 +91,18 @@ def miscompras(request):
 
 
 def perfil(request):
-    usuario = Perfil.objects.get(usuario=request.user)  # Asegurándonos de que se obtiene el perfil correcto
+    # Asegurándonos de que se obtiene el perfil correcto del usuario
+    usuario = Perfil.objects.get(usuario=request.user)
 
     if request.method == 'POST':
+        # Instanciar el formulario con los datos POST y archivos, además del perfil existente
         form = EditarPerfilForm(request.POST, request.FILES, instance=usuario)
         if form.is_valid():
             form.save()  # Guardamos los cambios en el perfil
             messages.success(request, 'Perfil actualizado exitosamente.')
             return redirect('perfil')
     else:
+        # Instanciar el formulario con el perfil existente
         form = EditarPerfilForm(instance=usuario)
 
     return render(request, 'Autoescuela/perfil.html', {'usuario': usuario, 'form': form})
