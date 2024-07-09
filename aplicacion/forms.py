@@ -230,7 +230,6 @@ class EditarPerfilForm(forms.ModelForm):
 
 class ComprarCursoForm(forms.Form):
     producto_id = forms.IntegerField(widget=forms.HiddenInput)
-    
     def clean_producto_id(self):
         producto_id = self.cleaned_data['producto_id']
         if not isinstance(producto_id, int) or producto_id <= 0:
@@ -240,7 +239,6 @@ class ComprarCursoForm(forms.Form):
 
 
 #SECCION CRUD
-
 class PerfilForm(forms.ModelForm):
     class Meta:
         model = Perfil
