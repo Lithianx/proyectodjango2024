@@ -415,16 +415,7 @@ def eliminar_perfil(request, id):
         return redirect('perfilAdmin')
     return render(request, 'Autoescuela/confirmar_eliminacion_perfil.html', {'perfil': perfil})
 
-# @login_required
-# def crear_compra(request):
-#     if request.method == 'POST':
-#         form = CompraForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('perfilAdmin')
-#     else:
-#         form = CompraForm()
-#     return render(request, 'Autoescuela/editar_compra_form.html', {'form': form})
+
 
 
 @login_required
