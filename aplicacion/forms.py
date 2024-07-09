@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import  UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 
-from aplicacion.models import Perfil
+from aplicacion.models import Compra, Cursos, Perfil, Producto
 
 
 
@@ -19,11 +19,53 @@ class RegistroForm(UserCreationForm):
         fields = ['username', 'email', 'password1', 'password2'] 
 
 
+# class RegistroAdminForm(UserCreationForm):
+#     username = forms.CharField(
+#         max_length=150,
+#         required=True,
+#         widget=forms.TextInput(attrs={'class': 'form-control'})
+#     )
+#     password = forms.CharField(
+#         required=True,
+#         widget=forms.PasswordInput(attrs={'class': 'form-control'})
+#     )
+#     confirm_password = forms.CharField(
+#         required=True,
+#         widget=forms.PasswordInput(attrs={'class': 'form-control'})
+#     )
+#     email = forms.EmailField(
+#          required=True,
+#          widget=forms.EmailInput(attrs={'class': 'form-control'})
+#     ) 
+#     class Meta:
+#         model = Perfil
+#         fields = ['nombre_estudiante', 'rut', 'correo', 'direccion', 'foto_perfil', 'rol']
+#         widgets = {
+#             'nombre_estudiante': forms.TextInput(attrs={'class': 'form-control'}),
+#             'rut': forms.TextInput(attrs={'class': 'form-control'}),
+#             'correo': forms.EmailInput(attrs={'class': 'form-control'}),
+#             'direccion': forms.TextInput(attrs={'class': 'form-control'}),
+#             'foto_perfil': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+#             'rol': forms.Select(attrs={'class': 'form-control'}),
+#      }    
+#     def clean(self):
+#         cleaned_data = super().clean()
+#         password = cleaned_data.get('password')
+#         confirm_password = cleaned_data.get('confirm_password')
+#         if password != confirm_password:
+#             raise forms.ValidationError('Las contraseñas no coinciden.')
+#         return cleaned_data
+
+
 class RegistroAdminForm(forms.ModelForm):
     username = forms.CharField(
         max_length=150,
         required=True,
         widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+    email = forms.EmailField(
+        required=True,
+        widget=forms.EmailInput(attrs={'class': 'form-control'})
     )
     password = forms.CharField(
         required=True,
@@ -33,22 +75,39 @@ class RegistroAdminForm(forms.ModelForm):
         required=True,
         widget=forms.PasswordInput(attrs={'class': 'form-control'})
     )
-    email = forms.EmailField(
+    nombre_estudiante = forms.CharField(
+        max_length=50,
         required=True,
-        widget=forms.EmailInput(attrs={'class': 'form-control'})
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+    rut = forms.CharField(
+        max_length=10,
+        required=False,
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+    direccion = forms.CharField(
+        max_length=255,
+        required=False,
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+    foto_perfil = forms.ImageField(
+        required=False,
+        widget=forms.ClearableFileInput(attrs={'class': 'form-control'})
+    )
+    rol = forms.ChoiceField(
+        choices=[('Administrador', 'Administrador'), ('Estudiante', 'Estudiante')],
+        required=True,
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+    cursos = forms.ChoiceField(
+        choices=Cursos,
+        required=True,
+        widget=forms.Select(attrs={'class': 'form-control'})
     )
 
     class Meta:
-        model = Perfil
-        fields = ['nombre_estudiante', 'rut', 'correo', 'direccion', 'foto_perfil', 'rol']
-        widgets = {
-            'nombre_estudiante': forms.TextInput(attrs={'class': 'form-control'}),
-            'rut': forms.TextInput(attrs={'class': 'form-control'}),
-            'correo': forms.EmailInput(attrs={'class': 'form-control'}),
-            'direccion': forms.TextInput(attrs={'class': 'form-control'}),
-            'foto_perfil': forms.ClearableFileInput(attrs={'class': 'form-control'}),
-            'rol': forms.Select(attrs={'class': 'form-control'}),
-        }
+        model = User
+        fields = ['username', 'email', 'password', 'confirm_password', 'nombre_estudiante', 'rut', 'direccion', 'foto_perfil', 'rol', 'cursos']
 
     def clean(self):
         cleaned_data = super().clean()
@@ -59,6 +118,7 @@ class RegistroAdminForm(forms.ModelForm):
             raise forms.ValidationError('Las contraseñas no coinciden.')
 
         return cleaned_data
+
 class PagoForm(forms.Form):
     nombre = forms.CharField(label='Nombre', max_length=100)
     apellido = forms.CharField(label='Apellido', max_length=100)
@@ -170,9 +230,38 @@ class EditarPerfilForm(forms.ModelForm):
 
 class ComprarCursoForm(forms.Form):
     producto_id = forms.IntegerField(widget=forms.HiddenInput)
-
     def clean_producto_id(self):
         producto_id = self.cleaned_data['producto_id']
         if not isinstance(producto_id, int) or producto_id <= 0:
             raise forms.ValidationError('ID de producto inválido')
         return producto_id
+
+
+
+#SECCION CRUD
+class PerfilForm(forms.ModelForm):
+    class Meta:
+        model = Perfil
+        fields = ['nombre_estudiante', 'rut', 'correo', 'cursos', 'direccion', 'foto_perfil', 'rol']
+
+class ProductoForm(forms.ModelForm):
+    class Meta:
+        model = Producto
+        fields = ['nombre', 'precio', 'cursos', 'cupos', 'descripcion', 'imagen_curso']
+
+# class CompraForm(forms.ModelForm):
+#     class Meta:
+#         model = Compra
+#         fields = ['nombre_curso', 'precio', 'estado', 'perfil']
+
+class CompraForm(forms.ModelForm):
+    class Meta:
+        model = Compra
+        fields = ['nombre_curso', 'precio', 'estado', 'perfil']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['perfil'].queryset = User.objects.filter(is_superuser=False)
+
+
+    
