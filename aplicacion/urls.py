@@ -53,6 +53,7 @@ urlpatterns = [
     path('editar_compra_form/<int:id>/', editar_compra_form, name='editar_compra_form'),
     path('confirmar_eliminacion_compra/<int:id>/', confirmar_eliminacion_compra, name='confirmar_eliminacion_compra'),
     path('confirmar_eliminacion_perfil/<int:id>/', confirmar_eliminacion_perfil, name='confirmar_eliminacion_perfil'),
+    path('confirmar_eliminacion_producto/<int:id>/', confirmar_eliminacion_producto, name='confirmar_eliminacion_producto'),
 
     path('crear_producto/', crear_producto, name='crear_producto'),
     path('listar_productos/<int:id>', listar_productos, name='listar_productos'),

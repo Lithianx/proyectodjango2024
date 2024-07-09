@@ -16,7 +16,7 @@
             <thead>
                 <tr>
                     <th>id perfil</th>
-                    <th>producto</th>
+                    <th>nombre</th>
                     <th>Comprador</th>
                     <th>Fecha de Compra</th>
                     <th>Acciones</th>
@@ -26,7 +26,7 @@
                 {% for compra in compras %}
                 <tr>
                     <td>{{ compra.id }}</td>
-                    <td>{{ compra.producto.nombre }}</td>
+                    <td>{{ compra.nombre_curso }}</td>
                     <td>{{ compra.perfil }}</td>
                     <td>{{ compra.fecha_pedido }}</td>
                     <td>
@@ -44,7 +44,7 @@
                 {% endfor %}
             </tbody>
         </table>
-        <a href="{% url 'crear_compra' %}" class="btn btn-primary">Crear Compra</a>
+        <a href="{% url 'crear_compra' %}" class="btn btn-primary">Añadir</a>
     </div>
     
     <div class="mt-5">
@@ -85,7 +85,7 @@
     </div>
 </div>
 
-{% comment %} <div class="container mt-5">
+ <div class="container mt-5">
     <h1 class="text-center">Lista de Productos</h1>
     <div class="mt-5">
         <h2>Productos</h2>
@@ -122,7 +122,7 @@
         </table>
         <a href="{% url 'crear_producto' %}" class="btn btn-primary">Crear Producto</a>
     </div>
-</div> {% endcomment %}
+</div> 
 
 
 

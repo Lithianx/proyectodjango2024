@@ -4,10 +4,12 @@ from django.contrib.auth import login, authenticate, logout
 from aplicacion.forms import CompraForm, ComprarCursoForm, EditarPerfilForm, PagoForm, PerfilForm, ProductoForm, RegistroAdminForm,RegistroForm,form_login
 from aplicacion.forms import ComprarCursoForm, EditarPerfilForm, PagoForm,RegistroForm,form_login
 from django.contrib.auth.models import User
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from aplicacion.models import CarritoItem, Compra, DetalleCompra, Perfil, Producto
 
 
+def es_superuser(user):
+    return user.is_superuser
 
 def base(request):
     return render(request, 'Autoescuela/base.html')
@@ -349,12 +351,18 @@ def confirmar_eliminacion_compra(request):
 def confirmar_eliminacion_perfil(request):
     return render(request,'Autoescuela/confirmar_eliminacion_perfil.html')
 
+def confirmar_eliminacion_producto(request):
+    return render(request,'Autoescuela/confirmar_eliminacion_producto.html')
 
+
+
+@user_passes_test(es_superuser)
 @login_required
 def perfilAdmin(request):
     compras = Compra.objects.all()
     usuarios = User.objects.all()
-    return render(request, 'Autoescuela/perfilAdmin.html', {'compras': compras, 'usuarios': usuarios})
+    productos = Producto.objects.all()
+    return render(request, 'Autoescuela/perfilAdmin.html', {'compras': compras, 'usuarios': usuarios,'productos': productos})
 
 @login_required
 def crear_producto(request):
@@ -385,7 +393,7 @@ def eliminar_producto(request, id):
     if request.method == 'POST':
         producto.delete()
         return redirect('perfilAdmin')
-    return render(request, 'Autoescuela/confirmar_eliminacion.html', {'obj': producto})
+    return render(request, 'Autoescuela/confirmar_eliminacion_producto.html', {'obj': producto})
 
 @login_required
 def crear_perfil(request):
@@ -479,4 +487,8 @@ def eliminar_compra(request, id):
         compra.delete()
         return redirect('perfilAdmin')
     return render(request, 'Autoescuela/confirmar_eliminacion_compra.html', {'compra': compra})
+
+#pass test
+
+
 
