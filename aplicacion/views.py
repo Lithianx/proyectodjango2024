@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
 from aplicacion.forms import CompraForm, ComprarCursoForm, EditarPerfilForm, PagoForm, PerfilForm, ProductoForm, RegistroAdminForm,RegistroForm,form_login
+from aplicacion.forms import ComprarCursoForm, EditarPerfilForm, PagoForm,RegistroForm,form_login
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from aplicacion.models import CarritoItem, Compra, DetalleCompra, Perfil, Producto
@@ -43,6 +44,12 @@ def formpago(request):
             else:
                 perfil = None
 
+            # Verificar si el usuario ya compró alguno de los cursos en el carrito
+            for item in items_carrito:
+                if Compra.objects.filter(perfil=perfil, detalles__producto=item.producto).exists():
+                    messages.error(request, f'Ya compraste el curso {item.producto.nombre}.')
+                    return redirect('carrito')
+
             # Crea la instancia de Compra
             compra = Compra.objects.create(
                 nombre_curso=form.cleaned_data['nombre'],  # Ajusta según tus necesidades
@@ -76,11 +83,25 @@ def interfaz_de_compra(request):
     return render(request, 'Autoescuela/interfaz_de_compra.html')
 
 def miscompras(request):
-    compras = Compra.objects.filter(perfil=request.user)
-    return render(request, 'Autoescuela/miscompras.html', {'compras': compras})
+    compras = Compra.objects.filter(perfil=request.user).order_by('fecha_pedido')
+    compras_con_id_local = [(idx + 1, compra) for idx, compra in enumerate(compras)]
+    return render(request, 'Autoescuela/miscompras.html', {'compras_con_id_local': compras_con_id_local})
+
 
 def perfil(request):
-    usuario = Perfil.objects.get(usuario=request.user)
+    usuario = Perfil.objects.get(usuario=request.user)  # Asegurándonos de que se obtiene el perfil correcto
+
+    if request.method == 'POST':
+        form = EditarPerfilForm(request.POST, request.FILES, instance=usuario)
+        if form.is_valid():
+            form.save()  # Guardamos los cambios en el perfil
+            messages.success(request, 'Perfil actualizado exitosamente.')
+            return redirect('perfil')
+    else:
+        form = EditarPerfilForm(instance=usuario)
+
+    return render(request, 'Autoescuela/perfil.html', {'usuario': usuario, 'form': form})
+
 
     if request.method == 'POST':
         form = EditarPerfilForm(request.POST, request.FILES, instance=usuario) # instance hace que el formulario se llene con los datos del usuario
@@ -185,29 +206,29 @@ def eliminar_carrito(request, producto_id):
 
 @login_required
 def agregar_al_carrito(request, producto_id):
-    if request.method == 'POST':
-        form = ComprarCursoForm(request.POST)
-        if form.is_valid():
-            producto_id = form.cleaned_data['producto_id']
-            producto = get_object_or_404(Producto, id=producto_id)
-            
-            # Verificar si ya existe un curso del mismo tipo en el carrito
-            if CarritoItem.objects.filter(producto__cursos=producto.cursos, compra=None).exists():
-                # Mostrar mensaje de error utilizando messages
-                messages.error(request, 'Ya tienes un curso de este tipo en el carrito.')
-                return redirect('cursos')
-            
-            # Si no existe, agregar el curso al carrito
-            carrito_item, created = CarritoItem.objects.get_or_create(
-                producto=producto, compra=None, defaults={'cantidad': 1}
-            )
-            
-            if not created:
-                carrito_item.cantidad += 1
-                carrito_item.save()
+    producto = get_object_or_404(Producto, id=producto_id)
+    
+    # Verificar si el usuario ya compró este curso
+    if Compra.objects.filter(perfil=request.user, detalles__producto=producto).exists():
+        messages.error(request, 'Ya has comprado este curso.')
+        return redirect('cursos')
+    
+    # Verificar si el curso ya está en el carrito
+    if CarritoItem.objects.filter(producto=producto, compra=None).exists():
+        messages.error(request, 'Este curso ya está en tu carrito.')
+        return redirect('cursos')
+    
+    # Si no existe, agregar el curso al carrito
+    carrito_item, created = CarritoItem.objects.get_or_create(
+        producto=producto, compra=None, defaults={'cantidad': 1}
+    )
+    
+    if not created:
+        carrito_item.cantidad += 1
+        carrito_item.save()
 
-            return redirect('carrito')
-    return redirect('cursos')
+    messages.success(request, 'Curso agregado al carrito.')
+    return redirect('carrito')
 
 
 

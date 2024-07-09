@@ -1,75 +1,79 @@
 {% extends "Autoescuela/base.html" %}
 {% load static %}
 
-
 {% block title %}miscompras{% endblock %}
 
 {% block contenido %}
-
-
-
 <section class="h-100">
   <div class="container py-5 h-100">
-      <div class="row d-flex justify-content-center align-items-center h-100">
-          <div class="col-lg-10 col-xl-11">
-              <div class="card" style="border-radius: 10px;">
-                  <div class="card-header px-4 py-5">
-                      <h5 class="text-muted mb-0">Mis Compras:</h5>
-                  </div>
-                  <div class="card-body p-4">
-                      <div class="d-flex justify-content-between align-items-center mb-4">
-                          <p class="lead fw-normal mb-0" style="color: #000000;">Compras</p>
-                      </div>
-                      <div class="row">
-                          {% for compra in compras %}
-                          <div class="col-12 col-sm-12 col-md-6 col-lg-4">
-                              <div class="card mb-3">
-                                  <div class="card-body">
-                                      <h5 class="card-title text-center">Compra #{{ compra.id }}</h5>
-                                      <p class="card-text">Fecha: {{ compra.fecha_pedido }}</p>
-                                      <p class="card-text">Precio: ${{ compra.precio }}</p>
-                                      <p class="card-text">Estado: {{ compra.estado }}</p>
-                                  </div>
-                                  <div class="text-center">
-                                      <button type="button" class="btn btn-primary btn-sm ver-detalles" data-compra-id="{{ compra.id }}" data-bs-toggle="modal" data-bs-target="#modalVerCompra{{compra.id}}">Ver Factura</button>
-                                  </div>
-                              </div>
-                          </div>
-                          <!-- Modal -->
-                          <div class="modal fade bd-example-modal-lg" id="modalVerCompra{{compra.id}}" tabindex="-1" aria-labelledby="modalVerCompraLabel" aria-hidden="true">
-                              <div class="modal-dialog modal-dialog-centered modal-lg">
-                                  <div class="modal-content">
-                                      <div class="modal-header">
-                                          <h5 class="modal-title" id="modalVerCompraLabel">Compra #<span id="compra-id"></span></h5>
-                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                      </div>
-                                      <div class="modal-body text-center">
-                                          <p>**Información de la Factura:**</p>
-                                          <ul>
-                                              <li>ID de la Compra: #{{ compra.id }}</li>
-                                              <li>Fecha de Compra: {{ compra.fecha_pedido }}</li>
-                                              <li>Curso: {{ compra.nombre_curso }}</li>
-                                              <li>Precio: ${{ compra.precio }}</li>
-                                              <li>Estado de la Venta: {{ compra.estado }}</li>
-                                          </ul>
-                                      </div>
-                                      <div class="modal-footer d-flex justify-content-between">
-                                          <button type="button" class="btn btn-primary fs-5" data-bs-dismiss="modal">Imprimir</button>
-                                          <button type="button" class="btn btn-danger fs-5" data-bs-dismiss="modal">Cerrar</button>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                          {% endfor %}
-                      </div>
-                  </div>
-              </div>
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-10 col-xl-11">
+        <div class="card" style="border-radius: 10px;">
+          <div class="card-header px-4 py-5">
+            <h5 class="text-muted mb-0">Mis Compras:</h5>
           </div>
+          <div class="card-body p-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <p class="lead fw-normal mb-0" style="color: #000000;">Compras</p>
+            </div>
+            <div class="row">
+                {% for id_local, compra in compras_con_id_local %}
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">Compra #{{ id_local }}</h5>
+                            <p class="card-text">Fecha: {{ compra.fecha_pedido }}</p>
+                            <p class="card-text">Precio: ${{ compra.precio }}</p>
+                            <p class="card-text">Estado: {{ compra.estado }}</p>
+                            <p class="card-text">
+                                Cursos Comprados:
+                                <ul>
+                                    {% for detalle in compra.detalles.all %}
+                                    <li>{{ detalle.producto.nombre }} - ${{ detalle.producto.precio }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </p>
+                        </div>
+                        <div class="text-center">
+                            <button type="button" class="btn btn-primary btn-sm ver-detalles" data-bs-toggle="modal" data-bs-target="#modalVerCompra{{ id_local }}">Ver Factura</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal -->
+                <div class="modal fade" id="modalVerCompra{{ id_local }}" tabindex="-1" aria-labelledby="modalVerCompraLabel{{ id_local }}" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalVerCompraLabel{{ id_local }}">Compra #{{ id_local }}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body text-center">
+                                <p><strong>Información de la Factura:</strong></p>
+                                <ul>
+                                    <li>ID de la Compra: #{{ id_local }}</li>
+                                    <li>Fecha de Compra: {{ compra.fecha_pedido }}</li>
+                                    <li>Precio Total: ${{ compra.precio }}</li>
+                                    <li>Estado de la Venta: {{ compra.estado }}</li>
+                                    <li>Cursos Comprados:</li>
+                                    <ul>
+                                        {% for detalle in compra.detalles.all %}
+                                        <li>{{ detalle.producto.nombre }} - ${{ detalle.producto.precio }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </ul>
+                            </div>
+                            <div class="modal-footer d-flex justify-content-between">
+                                <button type="button" class="btn btn-primary fs-5" data-bs-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+          </div>
+        </div>
       </div>
+    </div>
   </div>
 </section>
-
-
-
-
 {% endblock %}
