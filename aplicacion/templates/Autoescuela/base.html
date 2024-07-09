@@ -37,6 +37,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'profesores' %}">Profesores</a>
                 </li>
+                  {% if user.is_superuser %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'perfilAdmin' %}">Administración</a>
+              </li>
+                 {% endif %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'contacto' %}">Contacto</a>
                 </li>
@@ -62,7 +67,9 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{% url 'login' %}">Estudiante</a></li>
-                        <li><a class="dropdown-item" href="{% url 'perfilAdmin' %}">Administración</a></li>
+                        
+                        {% comment %} <li><a class="dropdown-item" href="{% url 'perfilAdmin' %}">Administración</a></li> {% endcomment %}
+                        
                     </ul>
                 </li>
                 {% endif %}

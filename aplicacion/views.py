@@ -1,7 +1,7 @@
 from django.contrib import messages  
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
-from aplicacion.forms import ComprarCursoForm, EditarPerfilForm, PagoForm,RegistroForm,form_login
+from aplicacion.forms import CompraForm, ComprarCursoForm, EditarPerfilForm, PagoForm, PerfilForm, ProductoForm, RegistroAdminForm,RegistroForm,form_login
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from aplicacion.models import CarritoItem, Compra, DetalleCompra, Perfil, Producto
@@ -97,14 +97,17 @@ def perfil(request):
     }
     return render(request, 'Autoescuela/perfil.html', data)
 
-def perfilAdmin(request):
-    return render(request, 'Autoescuela/perfilAdmin.html')
+# def perfilAdmin(request):
+#     return render(request, 'Autoescuela/perfilAdmin.html')
 
 def profesores(request):
     return render(request, 'Autoescuela/profesores.html')
 
+def confirmar_eliminacion(request):
+    return render(request, 'Autoescuela/profesores.html')
+
 def ventas(request):
-    return render(request, 'Autoescuela/ventas.html')
+    return render(request, 'Autoescuela/confirmar_eliminacion.html')
 
 def form_registrarse(request):
     if request.method == 'POST':
@@ -206,18 +209,6 @@ def agregar_al_carrito(request, producto_id):
             return redirect('carrito')
     return redirect('cursos')
 
-# @login_required
-# def ver_carrito(request):
-#     compra = Compra.objects.filter(perfil=request.user, estado='Pendiente').first()
-#     carrito_items = CarritoItem.objects.filter(compra=compra)
-    
-#     total = sum(item.producto.precio for item in carrito_items)  # Ajustar cálculo de total_price
-    
-#     datos = {
-#         'carrito': carrito_items,
-#         'total': total
-#     }
-#     return render(request, 'Autoescuela/carrito.html', datos)
 
 
 @login_required
@@ -265,6 +256,213 @@ def cerrar_sesion(request):
     CarritoItem.objects.all().delete()
     logout(request)
     return redirect('index')
+
+
+
+#seccion CRUD
+
+
+def editar_producto_form(request):
+    return render(request,'Autoescuela/editar_producto_form.html')
+
+def editar_perfil_form(request, id):
+    perfil = get_object_or_404(User, pk=id)
+    if request.method == 'POST':
+        form = PerfilForm(request.POST, request.FILES, instance=perfil)
+        if form.is_valid():
+            print()
+            form.save()
+            return redirect('perfilAdmin')  
+    else:
+        form = PerfilForm(instance=perfil)
+    return render(request, 'Autoescuela/editar_perfil_form.html', {'form': form})
+
+# def editar_compra_form(request):
+#     return render(request,'Autoescuela/editar_compra_form.html')
+
+@login_required
+def editar_compra_form(request, id):
+    compra = get_object_or_404(Compra, pk=id)
+    if request.method == 'POST':
+        form = CompraForm(request.POST, instance=compra)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Compra actualizada exitosamente.')
+            return redirect('perfilAdmin')  
+        else:
+            messages.error(request, 'Formulario no válido. Corrige los errores indicados.')
+    else:
+        form = CompraForm(instance=compra)
+    
+    return render(request, 'Autoescuela/editar_compra_form.html', {'form': form})
+
+def confirmar_eliminacion_compra(request):
+    return render(request,'Autoescuela/confirmar_eliminacion_compra.html')
+
+def confirmar_eliminacion_perfil(request):
+    return render(request,'Autoescuela/confirmar_eliminacion_perfil.html')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@login_required
+def perfilAdmin(request):
+    compras = Compra.objects.all()
+    usuarios = User.objects.all()
+    return render(request, 'Autoescuela/perfilAdmin.html', {'compras': compras, 'usuarios': usuarios})
+
+@login_required
+def crear_producto(request):
+    if request.method == 'POST':
+        form = ProductoForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('perfilAdmin')
+    else:
+        form = ProductoForm()
+    return render(request, 'Autoescuela/editar_producto_form.html', {'form': form})
+
+@login_required
+def editar_producto(request, id):
+    producto = get_object_or_404(Producto, pk=id)
+    if request.method == 'POST':
+        form = ProductoForm(request.POST, request.FILES, instance=producto)
+        if form.is_valid():
+            form.save()
+            return redirect('perfilAdmin')
+    else:
+        form = ProductoForm(instance=producto)
+    return render(request, 'Autoescuela/editar_producto_form.html', {'form': form})
+
+@login_required
+def eliminar_producto(request, id):
+    producto = get_object_or_404(Producto, pk=id)
+    if request.method == 'POST':
+        producto.delete()
+        return redirect('perfilAdmin')
+    return render(request, 'Autoescuela/confirmar_eliminacion.html', {'obj': producto})
+
+
+
+
+
+@login_required
+def crear_perfil(request):
+    if request.method == 'POST':
+        form = RegistroAdminForm(request.POST, request.FILES)
+        if form.is_valid():
+            user = User(
+                username=form.cleaned_data['username'],
+                email=form.cleaned_data['email']
+            )
+            user.set_password(form.cleaned_data['password'])
+            user.save()
+
+            perfil = Perfil.objects.create(
+                usuario=user,
+                nombre_estudiante=form.cleaned_data['nombre_estudiante'],
+                rut=form.cleaned_data['rut'],
+                correo=form.cleaned_data['email'],
+                direccion=form.cleaned_data['direccion'],
+                foto_perfil=form.cleaned_data['foto_perfil'],
+                rol=form.cleaned_data['rol'],
+                cursos=form.cleaned_data['cursos']
+            )
+            perfil.save()
+
+            messages.success(request, 'Perfil creado exitosamente.')
+            return redirect('perfilAdmin')  # Ajusta esta URL según sea necesario
+        else:
+            messages.error(request, 'Formulario no válido. Corrige los errores indicados.')
+    else:
+        form = RegistroAdminForm()
+
+    return render(request, 'Autoescuela/editar_perfil_form.html', {'form': form})
+
+
+
+@login_required
+def editar_perfil(request, id):
+    perfil = get_object_or_404(User, pk=id)
+    
+    print(perfil)
+    if request.method == 'POST':
+        form = PerfilForm(request.POST, request.FILES, instance=perfil)
+        if form.is_valid():
+            form.save()
+            return redirect('perfilAdmin')
+    else:
+        form = PerfilForm(instance=perfil)
+    return render(request, 'Autoescuela/editar_perfil_form.html', {'form': form})
+
+@login_required
+def eliminar_perfil(request, id):
+    perfil = get_object_or_404(User, pk=id)
+    if request.method == 'POST':
+        perfil.delete()
+        return redirect('perfilAdmin')
+    return render(request, 'Autoescuela/confirmar_eliminacion_perfil.html', {'perfil': perfil})
+
+# @login_required
+# def crear_compra(request):
+#     if request.method == 'POST':
+#         form = CompraForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('perfilAdmin')
+#     else:
+#         form = CompraForm()
+#     return render(request, 'Autoescuela/editar_compra_form.html', {'form': form})
+
+
+@login_required
+def crear_compra(request):
+    if request.method == 'POST':
+        form = CompraForm(request.POST)
+        if form.is_valid():
+            compra = form.save(commit=False)
+            compra.save()
+            messages.success(request, 'Compra creada exitosamente.')
+            return redirect('perfilAdmin')  
+        else:
+            messages.error(request, 'Formulario no válido. Corrige los errores indicados.')
+    else:
+        form = CompraForm()
+
+    return render(request, 'Autoescuela/crear_compra.html', {'form': form})
+
+@login_required
+def editar_compra(request, id):
+    compra = get_object_or_404(Compra, pk=id)
+    if request.method == 'POST':
+        form = CompraForm(request.POST, instance=compra)
+        if form.is_valid():
+            form.save()
+            return redirect('perfilAdmin')
+    else:
+        form = CompraForm(instance=compra)
+    return render(request, 'Autoescuela/editar_compra_form.html', {'form': form})
+
+@login_required
+def eliminar_compra(request, id):
+    compra = get_object_or_404(Compra, pk=id)
+    if request.method == 'POST':
+        compra.delete()
+        return redirect('perfilAdmin')
+    return render(request, 'Autoescuela/confirmar_eliminacion_compra.html', {'compra': compra})
+
 
 
 
