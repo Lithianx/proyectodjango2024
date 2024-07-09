@@ -1,7 +1,8 @@
 {% extends "Autoescuela/base.html" %}
 {% load static %}
+{% load crispy_forms_tags %}
 
-{% block title %}perfil{% endblock %}
+{% block title %}Perfil{% endblock %}
 
 {% block contenido %}
 <div class="container mt-5">
@@ -14,13 +15,22 @@
                     <hr>
                     <h6>Correo: {{ usuario.correo }}</h6>
                     <hr>
-                    <h6>Dirección: {{ usuario.direccion }}</h6>
+                    <h6>Dirección: 
+                        {% if usuario.direccion %}
+                            {{ usuario.direccion }}
+                        {% else %}
+                            No se ha ingresado
+                        {% endif %}
+                    </h6>
                     <hr>
-                    <h6>Cursos: 
-                        {% for curso in request.user.profile.cursos.all %}
-                            {{ curso.nombre }}
-                            {% if not forloop.last %}, {% endif %}
+                    <h6>Cursos Activos: 
+                        <ul>
+                        {% for compra in usuario.usuario.compra_set.all %}
+                            {% for detalle in compra.detalles.all %}
+                                <li>{{ detalle.producto.nombre }}</li>
+                            {% endfor %}
                         {% endfor %}
+                        </ul>
                     </h6>
                     <hr>
 
@@ -37,8 +47,6 @@
         </div>
     </div>
 </div>
-
-
 
 <div class="container-fluid contenedor-principal">
     <h2 class="mt-4 text-center">Horario Semanal</h2>
@@ -104,19 +112,9 @@
             </div>
             <div class="modal-body">
                 <!-- Formulario para editar perfil -->
-                <form id="editUserForm" class="needs-validation">
-                    <div class="mb-3">
-                        <label for="nombreP" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" id="nombreP" name="nombreP" value="{{ request.user.get_full_name }}" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="correo" class="form-label">Correo</label>
-                        <input type="email" class="form-control" id="correo" name="correo" value="{{ request.user.email }}" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="direccion" class="form-label">Dirección</label>
-                        <input type="text" class="form-control" id="direccion" name="direccion" value="{{ request.user.profile.direccion }}" required>
-                    </div>
+                <form id="editUserForm" method="post" class="needs-validation" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form|crispy }}
                     <!-- Botón de guardar -->
                     <button type="submit" class="btn btn-primary">Guardar</button>
                 </form>
